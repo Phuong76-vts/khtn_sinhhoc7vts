@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mái Vòm Sự Sống – KHTN 7 Bài 28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#eaf3ec;--paper:#fbfdf9;--ink:#123227;--mute:#4d6a5d;--line:#cfe0d3;
+  --leaf:#2f8a4f;--leaf2:#d8efdc;--o2:#e0452b;--o2bg:#fde6e0;--co2:#2a6fdb;--co2bg:#e1ecfd;--h2o:#25a7c4;
+  --sun:#f3a712;--ok:#1f8a4c;--okbg:#ddf3e4;--bad:#c2352a;--badbg:#fbe3e0;
+  --display:'Baloo 2','Segoe UI',Arial,sans-serif;--body:'Be Vietnam Pro','Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);
+  background-image:radial-gradient(circle at 15% -10%,#d4eadb 0,transparent 45%),radial-gradient(circle at 110% 30%,#dcebf3 0,transparent 40%);min-height:100vh}
+button{font:inherit;cursor:pointer;color:inherit}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding:14px 16px 40px}
+header.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{width:54px;height:54px;flex:none}
+.brand h1{font-size:clamp(26px,4vw,38px);font-weight:800;letter-spacing:-.01em}
+.brand small{display:block;font-size:13px;color:var(--mute);font-weight:600}
+.stamps{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.stamps b{font-size:12px;color:var(--mute);margin-right:2px}
+.stamp{width:30px;height:30px;border-radius:50%;border:2px dashed #a9c7b2;display:grid;place-items:center;font-size:15px;filter:grayscale(1);opacity:.45;transition:.3s}
+.stamp.on{border:2px solid var(--leaf);background:#fff;filter:none;opacity:1;transform:rotate(-8deg)}
+nav.route{display:flex;gap:6px;margin:14px 0 16px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+nav.route button{flex:none;display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px 6px 6px;font-weight:600;font-size:14px;white-space:nowrap}
+nav.route button .n{width:26px;height:26px;border-radius:50%;background:var(--leaf2);display:grid;place-items:center;font:800 14px var(--display);color:var(--leaf)}
+nav.route button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+nav.route button.on .n{background:#fff}
+nav.route button.done .n{background:var(--leaf);color:#fff}
+.view[hidden]{display:none}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 2px 0 #d6e5da}
+.grid2{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:14px;align-items:start}
+.grid2b{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media(max-width:900px){.grid2,.grid2b{grid-template-columns:1fr}}
+.kicker{font:700 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--leaf)}
+.vh{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.vh h2{font-size:clamp(24px,3.4vw,34px);font-weight:800}
+.vh p{margin:2px 0 0;color:var(--mute);max-width:720px}
+.btn{border:1.5px solid var(--ink);background:var(--paper);border-radius:12px;padding:8px 14px;font-weight:700;font-size:15px}
+.btn:hover{background:#fff}
+.btn.pri{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.btn.pri:hover{background:#277845}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tog{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:12px;padding:7px 12px;background:#fff;font-weight:600;font-size:14px;cursor:pointer;user-select:none}
+.tog input{width:18px;height:18px;accent-color:var(--leaf)}
+label.sl{display:block;font-size:14px;font-weight:600;margin-top:8px}
+input[type=range]{width:100%;accent-color:var(--leaf)}
+.fb{margin-top:8px;padding:8px 12px;border-radius:10px;font-weight:600;font-size:14.5px;display:none}
+.fb.ok{display:block;background:var(--okbg);color:var(--ok)}
+.fb.no{display:block;background:var(--badbg);color:var(--bad)}
+.fb.info{display:block;background:#eef4f0;color:var(--ink);font-weight:500}
+.opt{display:block;width:100%;text-align:left;margin-bottom:6px;padding:9px 12px;border-radius:11px;border:1.5px solid var(--line);background:#fff;font-weight:600;font-size:14.5px}
+.opt:hover{border-color:var(--ink)}
+.opt.pick{border-color:var(--ink);background:#f1f6f2}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt:disabled{cursor:default}
+.q{font-weight:700;margin:0 0 8px}
+details.tnote{margin-top:12px;border:1.5px dashed #b9d3c0;border-radius:12px;padding:8px 12px;background:#f6faf6;font-size:14.5px}
+details.tnote summary{font-weight:700;cursor:pointer;color:var(--leaf)}
+.o2{color:var(--o2);font-weight:700}.co2{color:var(--co2);font-weight:700}
+sub{font-size:.72em}
+svg text{font-family:var(--body)}
+/* HUB */
+.scene{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#cfe9f3}
+.scene svg{display:block;width:100%;height:auto}
+.gauges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.gauge{border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:#fff}
+.gauge .t{display:flex;justify-content:space-between;font-size:13px;font-weight:700}
+.bar{height:12px;border-radius:6px;background:#edf1ee;overflow:hidden;margin-top:5px}
+.bar i{display:block;height:100%;width:50%;border-radius:6px;transition:width .2s}
+#chart0{width:100%;height:120px;display:block;margin-top:10px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.status{margin-top:8px;font-size:14px;font-weight:600;padding:7px 10px;border-radius:10px;background:#f1f6f2}
+.scen{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+@media(max-width:520px){.scen{grid-template-columns:repeat(2,1fr)}}
+.scen button{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:8px 6px;font-weight:700;font-size:13.5px;line-height:1.25}
+.scen button.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.scen button.ok::after{content:' ✓';color:var(--leaf)}
+.scen button.on.ok::after{color:#8fe0a8}
+table.t281{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
+table.t281 th,table.t281 td{border:1px solid #a8c9b2;padding:7px;text-align:center}
+table.t281 th{background:#5fa98a;color:#fff}
+table.t281 td.slot{cursor:pointer;background:#f3faf5;font-weight:800;min-width:70px;height:40px}
+table.t281 td.slot.sel{outline:3px solid var(--sun)}
+table.t281 td.slot.right{background:var(--okbg)}table.t281 td.slot.wrong{background:var(--badbg)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.chip{border:2px solid var(--ink);border-radius:999px;padding:5px 14px;font-weight:800;background:#fff}
+.chip.sel{background:var(--ink);color:#fff}
+.chip.c-o2{border-color:var(--o2);color:var(--o2)}.chip.c-o2.sel{background:var(--o2);color:#fff}
+.chip.c-co2{border-color:var(--co2);color:var(--co2)}.chip.c-co2.sel{background:var(--co2);color:#fff}
+.chip:disabled{opacity:.4}
+/* stoma */
+.micro{position:relative;border-radius:50%;overflow:hidden;aspect-ratio:1;max-width:520px;margin:0 auto;border:10px solid #23362e;box-shadow:0 0 0 4px #9fb8aa,inset 0 0 40px rgba(0,0,0,.35);background:#d9efc9}
+.micro svg{width:100%;height:100%;display:block}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;font-weight:600;margin-top:8px;justify-content:center}
+.legend span::before{content:'';display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px;background:var(--c)}
+#openChart{width:100%;height:110px;display:block;border:1px solid var(--line);border-radius:12px;background:#fff;margin-top:8px}
+.lblq{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;font-size:14.5px}
+.lblq .pin{width:26px;height:26px;border-radius:50%;background:var(--sun);color:#fff;display:grid;place-items:center;font-weight:800}
+select{font:inherit;padding:6px 8px;border-radius:9px;border:1.5px solid var(--line);background:#fff;width:100%}
+select.right{border-color:var(--ok);background:var(--okbg)}select.wrong{border-color:var(--bad);background:var(--badbg)}
+/* animals */
+.zoo{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:700px){.zoo{grid-template-columns:repeat(2,1fr)}}
+.ani{border:2px solid var(--line);border-radius:16px;background:#fff;padding:8px;text-align:center;cursor:pointer;transition:.2s}
+.ani:hover{border-color:var(--ink)}
+.ani svg{width:100%;height:96px;display:block}
+.ani b{display:block;font-family:var(--display);font-size:18px}
+.ani .org{display:inline-block;margin-top:4px;padding:2px 10px;border-radius:999px;background:#eef3ef;font-weight:700;font-size:13px;min-height:24px}
+.ani.right{border-color:var(--ok);background:#f2fbf4}.ani.right .org{background:var(--leaf);color:#fff}
+.ani.shake{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ani .gas{opacity:0;transition:.4s}.ani.right .gas{opacity:1}
+.diag{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:8px;align-items:center;background:#f4eadb;border-radius:16px;padding:14px;margin-top:6px}
+.diag .box{background:#5fb3b0;color:#fff;border-radius:12px;padding:12px;font-weight:700;text-align:center;font-size:14px}
+.diag .arr{display:flex;flex-direction:column;gap:8px}
+.slot2{border:2px dashed #8aa;border-radius:10px;background:#fff;min-width:74px;padding:4px 8px;font-weight:800;cursor:pointer;text-align:center}
+.slot2.right{border:2px solid var(--ok);background:var(--okbg)}.slot2.wrong{border:2px solid var(--bad);background:var(--badbg)}
+.diag .lab{font-size:12px;font-weight:700;color:var(--mute);text-align:center}
+/* human */
+.body svg{width:100%;max-height:560px;display:block}
+.hold{user-select:none;-webkit-user-select:none;touch-action:none}
+.route-list{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;padding:8px;border:1.5px dashed var(--line);border-radius:12px;background:#fff}
+.route-list .chip{font-size:14px}
+.alv svg{width:100%;display:block}
+/* room */
+.room svg{width:100%;display:block;border-radius:14px}
+.meter{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;margin-top:6px}
+.meter .bar{flex:1;margin:0}
+.sort{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.bin{border:2px dashed var(--line);border-radius:14px;padding:8px;min-height:120px;background:#fff}
+.bin h3{font-size:17px;margin-bottom:6px}
+.bin.good h3{color:var(--ok)}.bin.badb h3{color:var(--bad)}
+.bin .it{font-size:13.5px;padding:5px 8px;border-radius:8px;margin-bottom:5px;background:#f2f6f3}
+.pile .chip{font-weight:600;font-size:14px;border-width:1.5px;text-align:left;border-radius:12px}
+/* summary */
+.learned{background:#dfeef4;border-radius:16px;padding:14px 16px}
+.learned li{margin-bottom:6px}
+.cert{border:3px double var(--leaf);border-radius:18px;padding:22px;text-align:center;background:linear-gradient(#fff,#f2faf4);margin-top:12px}
+.cert h3{font-size:28px;color:var(--leaf)}
+.cert .nm{font:800 30px var(--display);margin:6px 0;color:var(--ink)}
+.info table{width:100%;border-collapse:collapse;font-size:14.5px}
+.info td{border-bottom:1px solid var(--line);padding:8px 6px;vertical-align:top}
+.info td:first-child{font-weight:700;width:30%;color:var(--leaf)}
+.toast{visibility:hidden;position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;transition:.35s;z-index:9;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.toast.show{visibility:visible;transform:translateX(-50%) translateY(0)}
+@media print{header.top .stamps,nav.route,.noprint{display:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <svg class="logo" viewBox="0 0 60 60" aria-hidden="true"><path d="M6 46 A24 24 0 0 1 54 46 Z" fill="#cfe9f3" stroke="#2f8a4f" stroke-width="3"/><path d="M30 46 C30 34 26 28 18 26 C24 34 28 36 30 46" fill="#2f8a4f"/><path d="M30 46 C31 32 36 26 44 24 C38 32 33 36 30 46" fill="#4fae6b"/><circle cx="20" cy="18" r="3.5" fill="#e0452b"/><circle cx="40" cy="15" r="3" fill="#2a6fdb"/><rect x="3" y="45" width="54" height="5" rx="2.5" fill="#123227"/></svg>
+  <div class="brand"><h1>Mái Vòm Sự Sống</h1><small>KHTN 7 · Bài 28. Trao đổi khí ở sinh vật · Học liệu tương tác và mô phỏng</small></div>
+  <div class="stamps" id="stamps" aria-label="Con dấu đã nhận"></div>
+</header>
+<nav class="route" id="route" aria-label="Các trạm"></nav>
+
+<!-- ============ TRẠM 0: MÁI VÒM ============ -->
+<section class="view" id="v-dome">
+  <div class="vh"><div><div class="kicker">Mở đầu · I. Trao đổi khí ở sinh vật</div><h2>Trạm 0 · Thí nghiệm mái vòm kín</h2>
+  <p>Năm 1771, nhà khoa học Joseph Priestley đặt một chú chuột và một cành bạc hà vào bình thủy tinh kín. Chúng ta làm lại thí nghiệm ấy trong mái vòm ảo. <b>Trao đổi khí là gì? Nó diễn ra thế nào ở động vật và thực vật?</b></p></div></div>
+  <div class="grid2">
+    <div class="card">
+      <div class="scene"><svg id="dome" viewBox="0 0 600 360" role="img" aria-label="Mái vòm kính có cây bạc hà và chú chuột">
+        <defs>
+          <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#fff" stop-opacity=".25"/></linearGradient>
+          <clipPath id="domeClip"><path d="M80 300 A220 220 0 0 1 520 300 Z"/></clipPath>
+        </defs>
+        <rect id="sky" width="600" height="360" fill="#bfe6f5"/>
+        <g id="stars" fill="#fff"></g>
+        <circle id="sun" r="22" fill="#f3a712"/>
+        <g id="moon"><circle r="17" fill="#f4f1d8"/><circle r="15" cx="7" cy="-4" fill="#1b2a4a" id="moonCut"/></g>
+        <rect y="300" width="600" height="60" fill="#7a9b55"/>
+        <rect y="300" width="600" height="6" fill="#5d7f3e"/>
+        <g clip-path="url(#domeClip)"><rect x="80" y="70" width="440" height="235" id="domeAir" fill="#fff" opacity=".08"/><g id="gasDots"></g></g>
+        <!-- plant -->
+        <g id="plant" transform="translate(220 300)">
+          <path d="M-26 0 L-20 -34 L20 -34 L26 0 Z" fill="#b8643b"/><rect x="-24" y="-40" width="48" height="8" rx="3" fill="#cf7848"/>
+          <g id="stems" stroke="#3a7a3c" stroke-width="4" fill="none" stroke-linecap="round">
+            <path d="M0 -40 C-2 -80 4 -110 0 -150"/><path d="M0 -70 C-20 -90 -36 -96 -46 -120"/><path d="M0 -90 C18 -104 30 -116 40 -140"/>
+          </g>
+          <g id="leaves"></g>
+          <g id="plantArrows" opacity="0"><text x="-118" y="-150" font-size="15" font-weight="700" fill="#2a6fdb">CO₂ →</text><text x="40" y="-170" font-size="15" font-weight="700" fill="#e0452b">→ O₂</text></g>
+        </g>
+        <!-- mouse -->
+        <g id="mouse" transform="translate(388 292)">
+          <g id="mouseBody">
+            <path d="M34 -4 C60 -2 66 10 82 4" stroke="#9c8676" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <ellipse cx="10" cy="-14" rx="34" ry="20" fill="#bfae9f"/>
+            <circle cx="-26" cy="-22" r="15" fill="#c9b9ab"/>
+            <circle cx="-22" cy="-38" r="9" fill="#e3c9c0" stroke="#bfae9f" stroke-width="3"/>
+            <circle cx="-41" cy="-21" r="3" fill="#d77"/>
+            <g id="eyeOpen"><circle cx="-30" cy="-26" r="2.6" fill="#222"/></g>
+            <path id="eyeShut" d="M-33 -26 q3 3 6 0" stroke="#222" stroke-width="2" fill="none" opacity="0"/>
+            <rect x="-10" y="2" width="8" height="5" rx="2" fill="#a8968a"/><rect x="18" y="2" width="8" height="5" rx="2" fill="#a8968a"/>
+          </g>
+          <text id="zzz" x="-30" y="-58" font-size="18" font-weight="800" fill="#123227" opacity="0">z z</text>
+          <g id="mouseArrows" opacity="0"><text x="-96" y="-56" font-size="15" font-weight="700" fill="#e0452b">O₂ →</text><text x="-96" y="-8" font-size="15" font-weight="700" fill="#2a6fdb">← CO₂</text></g>
+        </g>
+        <path d="M80 300 A220 220 0 0 1 520 300" fill="url(#glass)" stroke="#e8f6fb" stroke-width="3"/>
+        <path d="M130 230 A170 170 0 0 1 230 110" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+        <rect id="lid" x="270" y="72" width="60" height="12" rx="5" fill="#123227"/>
+        <rect x="70" y="296" width="460" height="14" rx="5" fill="#123227"/>
+        <g font-weight="700"><rect x="12" y="12" width="132" height="32" rx="10" fill="#123227" opacity=".8"/><text id="clock" x="78" y="34" text-anchor="middle" fill="#fff" font-size="16">06:00</text></g>
+      </svg></div>
+      <div class="row" style="margin-top:10px">
+        <label class="tog"><input type="checkbox" id="hasPlant" checked> Cây bạc hà</label>
+        <label class="tog"><input type="checkbox" id="hasMouse" checked> Chú chuột</label>
+        <label class="tog"><input type="checkbox" id="hasWater" checked> Cây đủ nước</label>
+        <button class="btn" id="play0">⏸ Dừng thời gian</button>
+        <button class="btn" id="vent">↺ Mở nắp – thay không khí</button>
+      </div>
+      <label class="sl">Giờ trong ngày: <span id="hLbl">6 giờ</span><input type="range" id="hour" min="0" max="24" step="0.1" value="6"></label>
+    </div>
+    <div>
+      <div class="card">
+        <div class="gauges">
+          <div class="gauge"><div class="t"><span class="o2">Lượng O₂ trong vòm</span><span id="oV">100</span></div><div class="bar"><i id="oBar" style="background:var(--o2)"></i></div></div>
+          <div class="gauge"><div class="t"><span class="co2">Lượng CO₂ trong vòm</span><span id="cV">10</span></div><div class="bar"><i id="cBar" style="background:var(--co2)"></i></div></div>
+        </div>
+        <canvas id="chart0" width="560" height="160" aria-label="Đồ thị lượng khí theo thời gian"></canvas>
+        <div class="status" id="status0">…</div>
+        <div style="font-size:12.5px;color:var(--mute);margin-top:6px">Mô hình định tính: 100 = lượng O₂ trong không khí lúc mới đóng vòm. Chấm đỏ = O₂, chấm xanh = CO₂.</div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="kicker">Dự đoán → Thí nghiệm → Giải thích</div>
+        <h3 style="font-size:21px;margin:4px 0 8px">4 thí nghiệm của nhà khoa học</h3>
+        <div class="scen" id="scen"></div>
+        <div id="scenBox"><p style="margin:0;color:var(--mute)">Chọn một thí nghiệm ở trên để bắt đầu.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="grid2b">
+      <div>
+        <div class="kicker">Câu hỏi 1 · Bảng 28.1</div>
+        <h3 style="font-size:21px;margin:4px 0">Hoàn thành Bảng 28.1</h3>
+        <p style="margin:4px 0;font-size:14.5px">Chọn thẻ khí rồi bấm vào ô trống (bấm lại ô để xoá).</p>
+        <div class="chips"><button class="chip c-o2" data-g="O₂">O₂</button><button class="chip c-co2" data-g="CO₂">CO₂</button></div>
+        <table class="t281"><thead><tr><th colspan="2">Trao đổi khí</th><th>Khí lấy vào</th><th>Khí thải ra</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2">Ở thực vật</td><td>Quang hợp</td><td class="slot" data-a="CO₂"></td><td class="slot" data-a="O₂"></td></tr>
+          <tr><td>Hô hấp</td><td class="slot" data-a="O₂"></td><td class="slot" data-a="CO₂"></td></tr>
+          <tr><td>Ở động vật</td><td>Hô hấp</td><td class="slot" data-a="O₂"></td><td class="slot" data-a="CO₂"></td></tr>
+        </tbody></table>
+        <div class="row" style="margin-top:8px"><button class="btn pri" id="chk281">Kiểm tra</button></div>
+        <div class="fb" id="f281"></div>
+      </div>
+      <div>
+        <div class="kicker">Câu hỏi 2</div>
+        <h3 style="font-size:21px;margin:4px 0 8px">Trao đổi khí liên quan gì với hô hấp tế bào?</h3>
+        <div id="q0"></div><div class="fb" id="f0"></div>
+        <div class="learned" style="margin-top:10px;font-size:14.5px"><b>Ghi nhớ:</b> Trao đổi khí là quá trình sinh vật lấy O₂ hoặc CO₂ từ môi trường vào cơ thể, đồng thời thải ra môi trường khí CO₂ hoặc O₂. Trao đổi khí diễn ra theo cơ chế <b>khuếch tán</b>.</div>
+      </div>
+    </div>
+    <details class="tnote"><summary>Gợi ý cho giáo viên</summary>Dùng ở hoạt động Mở đầu và mục I. Cho học sinh <b>dự đoán trước</b> (giơ thẻ) rồi mới chạy từng thí nghiệm. Kết luận cần rút ra: động vật và thực vật đều hô hấp (lấy O₂, thải CO₂); thực vật khi có ánh sáng còn quang hợp (lấy CO₂, thải O₂); thiếu nước, khí khổng đóng nên quang hợp giảm. Có thể kéo thanh giờ để học sinh quan sát cả một ngày đêm. Mô hình là định tính, các con số chỉ để so sánh tăng/giảm.</details>
+  </div>
+</section>
+
+<!-- ============ TRẠM 1: KHÍ KHỔNG ============ -->
+<section class="view" id="v-stoma" hidden>
+  <div class="vh"><div><div class="kicker">II. Trao đổi khí ở thực vật · Hình 28.1</div><h2>Trạm 1 · Khí khổng dưới kính hiển vi</h2>
+  <p>Phóng to mặt dưới lá cây. Kéo thanh <b>giờ</b> và <b>lượng nước</b> để xem khí khổng đóng, mở và các chất khí ra vào ra sao.</p></div></div>
+  <div class="grid2">
+    <div class="card">
+      <div class="micro"><svg id="stoma" viewBox="-260 -260 520 520" aria-label="Khí khổng phóng to"></svg></div>
+      <div class="legend"><span style="--c:var(--co2)">CO₂</span><span style="--c:var(--o2)">O₂</span><span style="--c:var(--h2o)">Hơi nước</span><span style="--c:#2f8a4f">Lục lạp</span></div>
+      <label class="sl">Giờ trong ngày: <span id="sh">12 giờ</span><input type="range" id="sHour" min="0" max="24" step="0.25" value="12"></label>
+      <label class="sl">Lượng nước trong cây: <span id="sw">đủ nước</span><input type="range" id="sWater" min="0" max="1" step="0.05" value="1"></label>
+      <div class="row" style="margin-top:8px"><label class="tog"><input type="checkbox" id="sLabels" checked> Hiện tên các bộ phận</label><label class="tog"><input type="checkbox" id="sAuto"> Tự chạy một ngày</label></div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="status" id="sMode" style="margin-top:0">…</div>
+        <div style="display:flex;justify-content:space-between;font-size:13.5px;font-weight:700;margin-top:10px"><span>Độ mở khí khổng</span><span id="sOpenV">–</span></div>
+        <div class="bar"><i id="sOpenBar" style="background:var(--leaf)"></i></div>
+        <canvas id="openChart" width="520" height="150" aria-label="Độ mở khí khổng theo giờ"></canvas>
+        <div style="font-size:12.5px;color:var(--mute);margin-top:4px">Đồ thị: độ mở khí khổng trong ngày khi cây đủ nước (chấm cam: giờ đang chọn).</div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="kicker">Nhận biết cấu tạo</div>
+        <p class="q" style="margin-top:4px">Tắt “Hiện tên các bộ phận”, rồi chọn tên cho các điểm đánh số:</p>
+        <div class="lblq" id="lblq"></div>
+        <div class="row" style="margin-top:8px"><button class="btn pri" id="chkLbl">Kiểm tra</button></div>
+        <div class="fb" id="fLbl"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="kicker">Câu hỏi SGK</div>
+    <div class="grid2b" style="margin-top:6px">
+      <div><p class="q">1. Cấu tạo tế bào khí khổng phù hợp với chức năng trao đổi khí như thế nào?</p><div id="q1a"></div><div class="fb" id="f1a"></div></div>
+      <div><p class="q">2. Trao đổi khí qua khí khổng trong quang hợp và hô hấp khác nhau thế nào?</p><div id="q1b"></div><div class="fb" id="f1b"></div></div>
+      <div><p class="q">3. Quá trình trao đổi khí chịu ảnh hưởng của những yếu tố nào?</p><div id="q1c"></div><div class="fb" id="f1c"></div></div>
+      <div><p class="q">4. Cây bị thiếu nước ảnh hưởng thế nào đến trao đổi khí?</p><div id="q1d"></div><div class="fb" id="f1d"></div></div>
+    </div>
+    <details class="tnote"><summary>Gợi ý cho giáo viên</summary>Có thể cho học sinh quan sát tiêu bản biểu bì lá (lá thài lài tía) dưới kính hiển vi thật, rồi đối chiếu với mô phỏng. Nhấn mạnh: thành trong của tế bào khí khổng dày, thành ngoài mỏng; khi tế bào no nước, thành ngoài giãn nhiều hơn làm hai tế bào cong ra, lỗ khí mở; khi thiếu nước, tế bào xẹp lại, lỗ khí đóng. Ngoài trao đổi khí, khí khổng còn thực hiện thoát hơi nước (chấm xanh ngọc).</details>
+  </div>
+</section>
+
+<!-- ============ TRẠM 2: ĐỘNG VẬT ============ -->
+<section class="view" id="v-zoo" hidden>
+  <div class="vh"><div><div class="kicker">III.1. Cơ quan trao đổi khí ở động vật · Hình 28.2, 28.3</div><h2>Trạm 2 · Mỗi loài thở một kiểu</h2>
+  <p>Chọn tên cơ quan trao đổi khí rồi bấm vào con vật có cơ quan đó.</p></div></div>
+  <div class="card">
+    <div class="chips" id="orgChips"></div>
+    <div class="zoo" id="zoo"></div>
+    <div class="fb" id="fZoo"></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="kicker">Sơ đồ khái quát (Hình 28.3)</div>
+    <p class="q" style="margin-top:4px">Bấm vào các ô trống để chọn khí đi theo mỗi mũi tên.</p>
+    <div class="diag">
+      <div class="arr"><div class="lab">Môi trường</div><span class="slot2" data-a="O₂" data-k="d1">?</span><span class="slot2" data-a="CO₂" data-k="d2">?</span></div>
+      <div class="box">Cơ quan trao đổi khí<br><small>(da, hệ thống ống khí, mang, phổi)</small></div>
+      <div class="arr"><div class="lab">Trong cơ thể</div><span class="slot2" data-a="O₂" data-k="d3">?</span><span class="slot2" data-a="CO₂" data-k="d4">?</span></div>
+      <div class="box">Tất cả các tế bào trong cơ thể</div>
+    </div>
+    <div style="font-size:13px;color:var(--mute);margin-top:6px">Ô trên: khí đi vào (→). Ô dưới: khí đi ra (←).</div>
+    <div class="row" style="margin-top:8px"><button class="btn pri" id="chkDiag">Kiểm tra</button></div>
+    <div class="fb" id="fDiag"></div>
+    <details class="tnote"><summary>Gợi ý cho giáo viên</summary>Tổ chức trò chơi “Ai thở bằng gì?” theo đội. Mở rộng: giun đất cần da luôn ẩm để khí khuếch tán qua; cá lên cạn không trao đổi khí được vì mang bị khô, các lá mang dính vào nhau.</details>
+  </div>
+</section>
+
+<!-- ============ TRẠM 3: NGƯỜI ============ -->
+<section class="view" id="v-human" hidden>
+  <div class="vh"><div><div class="kicker">III.2. Quá trình trao đổi khí ở người · Hình 28.4</div><h2>Trạm 3 · Hành trình của một hơi thở</h2>
+  <p><b>Nhấn giữ</b> nút “Hít vào” rồi thả ra để thở. Sau đó dẫn phân tử O₂ đi đúng đường tới tế bào.</p></div></div>
+  <div class="grid2">
+    <div class="card body">
+      <svg id="human" viewBox="0 0 400 540" aria-label="Sơ đồ cơ quan hô hấp ở người"></svg>
+      <div class="row" style="justify-content:center;margin-top:6px">
+        <button class="btn pri hold" id="inhale">⬇ Nhấn giữ: Hít vào</button>
+        <span style="font-weight:700" id="breathCount">Số hơi thở: 0</span>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="kicker">Nhiệm vụ 1</div>
+        <p class="q" style="margin-top:4px">Bấm lần lượt theo đúng thứ tự đường đi của không khí khi <span class="o2">hít vào</span>:</p>
+        <div class="chips" id="pathChips"></div>
+        <div class="route-list" id="pathOut"></div>
+        <div class="row" style="margin-top:8px"><button class="btn" id="pathReset">Làm lại</button></div>
+        <div class="fb" id="fPath"></div>
+      </div>
+      <div class="card alv" style="margin-top:14px">
+        <div class="kicker">Nhiệm vụ 2 · Phóng to phế nang</div>
+        <svg id="alv" viewBox="0 0 420 210" aria-label="Phế nang và mao mạch"></svg>
+        <p class="q">Tại phế nang, các khí đi theo hướng nào?</p>
+        <div id="q3a"></div><div class="fb" id="f3a"></div>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <div class="grid2b">
+      <div><p class="q">Nhiệm vụ 3. Khí CO₂ từ tế bào được thải ra ngoài theo con đường nào?</p><div id="q3b"></div><div class="fb" id="f3b"></div></div>
+      <div><p class="q">Nhiệm vụ 4. Điều gì sẽ xảy ra nếu đường dẫn khí bị tắc nghẽn?</p><div id="q3c"></div><div class="fb" id="f3c"></div></div>
+    </div>
+    <details class="tnote"><summary>Gợi ý cho giáo viên</summary>Cho cả lớp đặt tay lên ngực, thở theo nhịp nút “Hít vào” để cảm nhận lồng ngực nở ra, xẹp xuống. Nhấn mạnh: O₂ khuếch tán từ phế nang vào máu, máu đưa O₂ tới các tế bào; CO₂ từ tế bào vào máu, đến phổi khuếch tán vào phế nang rồi được thải ra ngoài qua động tác thở ra.</details>
+  </div>
+</section>
+
+<!-- ============ TRẠM 4: PHÒNG AN TOÀN ============ -->
+<section class="view" id="v-safe" hidden>
+  <div class="vh"><div><div class="kicker">Vận dụng · Em có biết</div><h2>Trạm 4 · Căn phòng mùa đông</h2>
+  <p>Đêm đông giá rét, một gia đình đóng kín cửa và mang bếp than tổ ong vào phòng ngủ để sưởi. Hãy thử và quan sát chuyện gì xảy ra.</p></div></div>
+  <div class="grid2">
+    <div class="card room">
+      <svg id="room" viewBox="0 0 600 340" aria-label="Căn phòng có bếp than"></svg>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="stoveBtn">🔥 Đốt bếp than</button>
+        <button class="btn" id="winBtn">🪟 Mở cửa sổ</button>
+        <button class="btn" id="plantBtn">🪴 Đặt chậu lưỡi hổ</button>
+        <button class="btn" id="roomReset">↺ Làm lại</button>
+      </div>
+      <div class="meter"><span class="o2" style="width:110px">Khí O₂</span><div class="bar"><i id="rO" style="background:var(--o2)"></i></div></div>
+      <div class="meter"><span style="width:110px;color:#555">Khí độc (CO…)</span><div class="bar"><i id="rCO" style="background:#555"></i></div></div>
+      <div class="status" id="rStatus">Căn phòng có không khí trong lành.</div>
+    </div>
+    <div>
+      <div class="card">
+        <p class="q">Vì sao không được sưởi ấm bằng bếp than trong phòng kín?</p>
+        <div id="q4a"></div><div class="fb" id="f4a"></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="kicker">Bảo vệ cơ quan hô hấp</div>
+        <p class="q" style="margin-top:4px">Bấm vào từng việc làm rồi chọn: <b>có lợi</b> hay <b>có hại</b> cho quá trình trao đổi khí?</p>
+        <div class="chips pile" id="pile"></div>
+        <div class="row noprint" id="pickBin" style="display:none"><span id="pickTxt" style="font-weight:700"></span><button class="btn" data-b="good" style="border-color:var(--ok);color:var(--ok)">Có lợi</button><button class="btn" data-b="badb" style="border-color:var(--bad);color:var(--bad)">Có hại</button></div>
+        <div class="sort"><div class="bin good"><h3>Có lợi</h3><div id="binGood"></div></div><div class="bin badb"><h3>Có hại</h3><div id="binBad"></div></div></div>
+        <div class="fb" id="fSort"></div>
+      </div>
+    </div>
+  </div>
+  <details class="tnote card" style="margin-top:14px"><summary>Gợi ý cho giáo viên</summary>Liên hệ mục “Em có biết” SGK: khí than chứa nhiều CO₂ và CO, có thể gây nguy hiểm đến tính mạng; cây lưỡi hổ góp phần làm không khí trong lành nhưng <b>không thay thế được việc thông gió</b>. Giáo dục kĩ năng: không đốt than trong phòng kín, luôn giữ nhà thông thoáng, trồng nhiều cây xanh.</details>
+</section>
+
+<!-- ============ TRẠM 5: TỔNG KẾT ============ -->
+<section class="view" id="v-sum" hidden>
+  <div class="vh"><div><div class="kicker">Luyện tập · Em đã học</div><h2>Trạm 5 · Thử thách cuối cùng</h2><p>Trả lời 6 câu hỏi để nhận con dấu cuối cùng và giấy chứng nhận.</p></div></div>
+  <div class="grid2">
+    <div class="card"><div id="quiz"></div><div class="row" style="margin-top:8px"><button class="btn pri" id="quizChk">Nộp bài</button><button class="btn" id="quizRe">Làm lại</button></div><div class="fb" id="fQuiz"></div></div>
+    <div>
+      <div class="learned"><h3 style="font-size:20px;margin-bottom:6px">Em đã học</h3><ul style="margin:0;padding-left:20px;font-size:14.5px">
+        <li>Trao đổi khí là quá trình sinh vật lấy O₂ hoặc CO₂ từ môi trường vào cơ thể, đồng thời thải ra môi trường khí CO₂ hoặc O₂.</li>
+        <li>Thực vật trao đổi khí với môi trường chủ yếu qua khí khổng ở lá, trong quang hợp và hô hấp. Các chất khí khuếch tán vào và ra khỏi lá khi khí khổng mở.</li>
+        <li>Ở người, khi hít vào, không khí đi qua đường dẫn khí vào đến phổi, cung cấp O₂ cho các tế bào; khí CO₂ từ tế bào được máu chuyển tới phổi để thải ra ngoài qua động tác thở ra.</li></ul></div>
+      <div class="card noprint" style="margin-top:14px"><label class="sl" style="margin-top:0">Tên của em (để in giấy chứng nhận)<input id="nm" style="width:100%;font:inherit;padding:8px;border-radius:10px;border:1.5px solid var(--line);margin-top:4px" maxlength="40" placeholder="Ví dụ: Nguyễn Văn An – 7C8"></label></div>
+      <div class="cert" id="cert" hidden><div class="kicker">Giấy chứng nhận</div><h3>Nhà khoa học Sự Sống</h3><div class="nm" id="certName">…</div><p style="margin:4px 0">đã hoàn thành <b id="certN">…</b> trạm khám phá “Trao đổi khí ở sinh vật”.</p><p style="margin:0;font-size:13px;color:var(--mute)">Mái Vòm Sự Sống · KHTN 7 · THCS Võ Thị Sáu</p><button class="btn noprint" style="margin-top:10px" onclick="print()">🖨 In giấy chứng nhận</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THÔNG TIN ============ -->
+<section class="view info" id="v-info" hidden>
+  <div class="vh"><div><div class="kicker">Theo Công văn 5158/SGDĐT-GDTrH</div><h2>Thông tin học liệu</h2></div></div>
+  <div class="card"><table id="infoT"></table></div>
+</section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---------- sound ---------- */
+let AC=null;const ac=()=>{try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}return AC};
+function tone(f,d=.15,type='sine',g=.12,when=0){const a=ac();if(!a)return;const o=a.createOscillator(),v=a.createGain();o.type=type;o.frequency.value=f;v.gain.setValueAtTime(g,a.currentTime+when);v.gain.exponentialRampToValueAtTime(.001,a.currentTime+when+d);o.connect(v).connect(a.destination);o.start(a.currentTime+when);o.stop(a.currentTime+when+d+.02)}
+const ding=()=>{tone(660,.15,'sine',.12);tone(990,.25,'sine',.1,.1)},oops=()=>tone(180,.22,'triangle',.12);
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2600)}
+function shuf(n){const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+/* ---------- stamps & nav ---------- */
+const STAMPS=[['dome','🌿','Mái vòm'],['table','📋','Bảng 28.1'],['stoma','🔬','Khí khổng'],['zoo','🐟','Động vật'],['human','🫁','Hơi thở'],['safe','🏠','An toàn'],['quiz','🏅','Thử thách']];
+let got={};try{got=JSON.parse(localStorage.getItem('mvss-stamps')||'{}')}catch(e){}
+function renderStamps(){$('#stamps').innerHTML='<b>Con dấu</b>'+STAMPS.map(s=>`<span class="stamp ${got[s[0]]?'on':''}" title="${s[2]}">${s[1]}</span>`).join('')}
+function stamp(k){if(got[k])return;got[k]=1;try{localStorage.setItem('mvss-stamps',JSON.stringify(got))}catch(e){}renderStamps();renderRoute();const s=STAMPS.find(x=>x[0]===k);toast(`Nhận con dấu ${s[1]} ${s[2]}!`);tone(523,.12);tone(659,.12,'sine',.1,.1);tone(784,.3,'sine',.1,.2)}
+const VIEWS=[['dome','0','Mái vòm',['dome','table']],['stoma','1','Khí khổng',['stoma']],['zoo','2','Động vật',['zoo']],['human','3','Hơi thở',['human']],['safe','4','An toàn',['safe']],['sum','5','Thử thách',['quiz']],['info','i','Thông tin',[]]];
+let cur='dome';
+function renderRoute(){$('#route').innerHTML=VIEWS.map(v=>`<button data-v="${v[0]}" class="${v[0]===cur?'on':''} ${v[3].length&&v[3].every(k=>got[k])?'done':''}"><span class="n">${v[1]}</span>${v[2]}</button>`).join('');$$('#route button').forEach(b=>b.onclick=()=>{ac();go(b.dataset.v)})}
+function go(v){cur=v;$$('.view').forEach(x=>x.hidden=x.id!=='v-'+v);renderRoute();try{history.replaceState(null,'','#'+v)}catch(e){}if(v==='sum')updCert();window.scrollTo(0,0)}
+addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(v!==cur&&VIEWS.some(x=>x[0]===v))go(v)});
+/* ---------- mcq ---------- */
+function mcq(el,fb,opts,ans,ok,hint,cb){const box=$(el);box.innerHTML=shuf(opts.length).map(i=>`<button class="opt" data-i="${i}">${opts[i]}</button>`).join('');const bs=[...box.querySelectorAll('.opt')];
+  bs.forEach(b=>b.onclick=()=>{ac();const i=+b.dataset.i;if(i===ans){b.classList.add('right');bs.forEach(x=>x.disabled=true);$(fb).className='fb ok';$(fb).textContent=ok;ding();cb&&cb()}else{b.classList.add('wrong');b.disabled=true;$(fb).className='fb no';$(fb).textContent=hint||'Chưa đúng, quan sát lại mô phỏng nhé.';oops()}})}
+
+/* =========================================================
+   TRẠM 0 – MÁI VÒM
+   ========================================================= */
+const D={h:6,run:true,o:100,c:10,plant:true,mouse:true,water:1,hist:[],lock:false,speed:1};
+const lightAt=h=>(h>6&&h<18)?Math.sin(Math.PI*(h-6)/12):0;
+// stars
+for(let i=0;i<26;i++)el('circle',{cx:Math.random()*600,cy:Math.random()*240,r:Math.random()*1.4+.4},$('#stars'));
+// leaves
+const LEAVES=[[0,-150,0],[-46,-120,-40],[40,-140,40],[-10,-100,-70],[12,-118,70],[-28,-82,-60],[0,-62,60],[-50,-128,-110],[46,-148,110]];
+const leafEls=LEAVES.map(([x,y,r])=>{const g=el('g',{transform:`translate(${x} ${y}) rotate(${r})`},$('#leaves'));const p=el('path',{d:'M0 0 C8 -10 8 -26 0 -34 C-8 -26 -8 -10 0 0Z',fill:'#3f9a4a',stroke:'#2c6e35','stroke-width':1.2},g);el('path',{d:'M0 -2 L0 -30',stroke:'#2c6e35','stroke-width':1},g);return {g,p,x,y,r}});
+// gas dots
+const GD=[];for(let i=0;i<34;i++){const t=i%2?'c':'o';const c=el('circle',{r:4.2,fill:t==='o'?'#e0452b':'#2a6fdb',opacity:0},$('#gasDots'));GD.push({c,t,a:Math.random()*Math.PI,r:Math.random(),ph:Math.random()*6,sp:.2+Math.random()*.5})}
+function domePos(d,t){const ang=d.a+Math.sin(t*d.sp*.3+d.ph)*.25,rad=40+d.r*160+Math.sin(t*d.sp+d.ph)*10;return [300+Math.cos(ang)*rad,300-Math.abs(Math.sin(ang))*rad-8]}
+function stepDome(dt){
+  const L=lightAt(D.h);const w=D.water;
+  let dO=0,dC=0;
+  if(D.mouse){dO-=1.2;dC+=1.2}
+  if(D.plant){dO-=.3;dC+=.3;const open=L>0?(.15+.85*L)*w:0;const p=2.4*open*Math.min(1,D.c/15)*(L>0?1:0);dO+=p;dC-=p}
+  D.o=clamp(D.o+dO*dt,0,130);D.c=clamp(D.c+dC*dt,0,130);
+}
+function drawDome(t){
+  const L=lightAt(D.h);
+  const lerp=(a,b,k)=>Math.round(a+(b-a)*k);const day=clamp(L*1.6,0,1);
+  const sky=`rgb(${lerp(27,191,day)},${lerp(42,230,day)},${lerp(74,245,day)})`;$('#sky').setAttribute('fill',sky);$('#moonCut').setAttribute('fill',sky);
+  $('#stars').setAttribute('opacity',1-day);
+  const ang=Math.PI*((D.h-6)/12);$('#sun').setAttribute('cx',300-250*Math.cos(ang));$('#sun').setAttribute('cy',300-230*Math.sin(ang));$('#sun').setAttribute('opacity',L>0?1:0);
+  const ma=Math.PI*(((D.h+6)%24)/12);$('#moon').setAttribute('transform',`translate(${300-250*Math.cos(ma)} ${300-230*Math.sin(ma)})`);$('#moon').setAttribute('opacity',D.h>=18||D.h<=6?1:0);
+  const hh=Math.floor(D.h)%24,mm=Math.floor((D.h%1)*60);$('#clock').textContent=`${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')} ${L>0?'☀':'☾'}`;
+  // plant
+  $('#plant').style.display=D.plant?'':'none';
+  const droop=(1-D.water);leafEls.forEach(l=>{l.g.setAttribute('transform',`translate(${l.x} ${l.y}) rotate(${l.r+(l.r>=0?1:-1)*droop*70})`);l.p.setAttribute('fill',droop>.5?'#9aa64a':'#3f9a4a')});
+  const photo=D.plant&&L>0&&D.water>.3;$('#plantArrows').setAttribute('opacity',photo?.6+.4*Math.sin(t*4):0);
+  // mouse
+  $('#mouse').style.display=D.mouse?'':'none';
+  const sleepy=D.o<45;const br=1+(sleepy?.015:.04)*Math.sin(t*(sleepy?3:9));$('#mouseBody').setAttribute('transform',`scale(${br})`);
+  $('#eyeOpen').setAttribute('opacity',sleepy?0:1);$('#eyeShut').setAttribute('opacity',sleepy?1:0);$('#zzz').setAttribute('opacity',sleepy?.5+.5*Math.sin(t*2):0);
+  $('#mouseArrows').setAttribute('opacity',D.mouse&&!sleepy?.55+.45*Math.sin(t*5):0);
+  // gas dots
+  const nO=Math.round(clamp(D.o,0,130)/130*17),nC=Math.round(clamp(D.c,0,130)/130*17);let io=0,ic=0;
+  GD.forEach(d=>{let show;if(d.t==='o'){show=io<nO;io++}else{show=ic<nC;ic++}const [x,y]=domePos(d,t);d.c.setAttribute('cx',x);d.c.setAttribute('cy',y);d.c.setAttribute('opacity',show?.85:0)});
+  // gauges
+  $('#oV').textContent=Math.round(D.o);$('#cV').textContent=Math.round(D.c);$('#oBar').style.width=clamp(D.o/130*100,0,100)+'%';$('#cBar').style.width=clamp(D.c/130*100,0,100)+'%';
+  let s;
+  if(!D.plant&&!D.mouse)s='Mái vòm trống: lượng khí không thay đổi.';
+  else if(D.mouse&&D.o<45)s='⚠ Chú chuột lờ đờ, ngột ngạt vì thiếu O₂! Hãy mở nắp vòm để thay không khí.';
+  else{const parts=[];if(D.mouse)parts.push('Chuột hô hấp: lấy O₂, thải CO₂');if(D.plant){parts.push('Cây hô hấp: lấy O₂, thải CO₂');if(L>0&&D.water>.3)parts.push('Cây quang hợp: lấy CO₂, thải O₂');else if(L>0)parts.push('Cây thiếu nước: khí khổng đóng, quang hợp rất yếu');else parts.push('Trời tối: cây không quang hợp')}s=parts.join(' · ')}
+  $('#status0').textContent=s;
+}
+function drawChart(){const cv=$('#chart0'),g=cv.getContext('2d'),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
+  g.strokeStyle='#e3ece6';g.lineWidth=1;for(let y=0;y<=4;y++){g.beginPath();g.moveTo(30,10+y*(H-30)/4);g.lineTo(W-6,10+y*(H-30)/4);g.stroke()}
+  g.fillStyle='#4d6a5d';g.font='12px sans-serif';g.fillText('130',2,14);g.fillText('0',14,H-18);g.fillText('thời gian →',W-80,H-4);
+  const hs=D.hist,n=hs.length;if(n<2)return;const X=i=>30+(W-36)*i/(240-1),Y=v=>10+(H-30)*(1-v/130);
+  [['o','#e0452b'],['c','#2a6fdb']].forEach(([k,c])=>{g.strokeStyle=c;g.lineWidth=2.5;g.beginPath();hs.forEach((p,i)=>{i?g.lineTo(X(i),Y(p[k])):g.moveTo(X(i),Y(p[k]))});g.stroke()});
+}
+let histT=0;
+function syncDomeInputs(){$('#hasPlant').checked=D.plant;$('#hasMouse').checked=D.mouse;$('#hasWater').checked=D.water>.5;$('#hour').value=D.h;$('#hLbl').textContent=Math.floor(D.h)+' giờ';['#hasPlant','#hasMouse','#hasWater','#hour','#vent','#play0'].forEach(s=>$(s).disabled=D.lock)}
+$('#hasPlant').onchange=e=>{D.plant=e.target.checked};$('#hasMouse').onchange=e=>{D.mouse=e.target.checked};$('#hasWater').onchange=e=>{D.water=e.target.checked?1:.12};
+$('#hour').oninput=e=>{D.h=+e.target.value;$('#hLbl').textContent=Math.floor(D.h)+' giờ'};
+$('#play0').onclick=()=>{D.run=!D.run;$('#play0').textContent=D.run?'⏸ Dừng thời gian':'▶ Chạy thời gian'};
+$('#vent').onclick=()=>{D.o=100;D.c=10;D.hist=[];tone(300,.3,'sine',.06);toast('Đã thay không khí trong lành')};
+/* POE scenarios */
+const SC=[
+ {k:'s1',t:'Chỉ có chuột',set:{plant:false,mouse:true,water:1,h:11},d:'Mái vòm kín chỉ có chú chuột, ban ngày.',o:['Lượng O₂ giảm, CO₂ tăng','Lượng O₂ tăng, CO₂ giảm','Lượng khí không thay đổi'],a:0,e:'Chuột hô hấp liên tục: lấy O₂ và thải CO₂, nên O₂ trong vòm giảm dần, CO₂ tăng dần.'},
+ {k:'s2',t:'Chuột + cây, ban ngày',set:{plant:true,mouse:true,water:1,h:11},d:'Chuột và cây bạc hà đủ nước, ban ngày có ánh sáng.',o:['O₂ giảm nhanh như khi chỉ có chuột','O₂ được duy trì, không bị giảm','O₂ hết ngay lập tức'],a:1,e:'Khi có ánh sáng, cây quang hợp: lấy CO₂ do chuột thải ra và thải O₂ cho chuột dùng. Hai quá trình bù trừ nhau nên O₂ được duy trì.'},
+ {k:'s3',t:'Chuột + cây, ban đêm',set:{plant:true,mouse:true,water:1,h:23},d:'Chuột và cây bạc hà đủ nước, ban đêm không có ánh sáng.',o:['O₂ vẫn được duy trì như ban ngày','O₂ tăng mạnh','O₂ giảm, CO₂ tăng'],a:2,e:'Ban đêm cây không quang hợp mà chỉ hô hấp (lấy O₂, thải CO₂) giống chuột, nên O₂ giảm, CO₂ tăng.'},
+ {k:'s4',t:'Cây thiếu nước',set:{plant:true,mouse:true,water:.12,h:11},d:'Ban ngày, nhưng cây bạc hà bị thiếu nước, lá héo.',o:['O₂ vẫn được duy trì tốt','O₂ giảm vì cây quang hợp rất yếu','CO₂ giảm mạnh'],a:1,e:'Thiếu nước, tế bào khí khổng xẹp lại, khí khổng đóng: CO₂ khó vào lá nên cây quang hợp rất yếu, không bù được lượng O₂ chuột dùng.'},
+];
+let scDone={};try{scDone=JSON.parse(localStorage.getItem('mvss-scen')||'{}')}catch(e){}
+let scCur=null,scPick=null,scT=0;
+function renderScen(){$('#scen').innerHTML=SC.map((s,i)=>`<button data-i="${i}" class="${scCur===i?'on':''} ${scDone[s.k]?'ok':''}">TN${i+1}<br><span style="font-weight:500">${s.t}</span></button>`).join('');$$('#scen button').forEach(b=>b.onclick=()=>{if(D.lock)return;openScen(+b.dataset.i)})}
+function openScen(i){scCur=i;scPick=null;const s=SC[i];renderScen();
+  $('#scenBox').innerHTML=`<p style="margin:0 0 6px"><b>Thí nghiệm ${i+1}:</b> ${s.d}</p><p class="q">Em dự đoán sau một thời gian:</p>${s.o.map((o,j)=>`<button class="opt" data-j="${j}">${o}</button>`).join('')}<div class="row"><button class="btn pri" id="scRun" disabled>▶ Chạy thí nghiệm</button></div><div class="fb" id="scFb"></div>`;
+  $$('#scenBox .opt').forEach(b=>b.onclick=()=>{if(D.lock)return;$$('#scenBox .opt').forEach(x=>x.classList.remove('pick'));b.classList.add('pick');scPick=+b.dataset.j;$('#scRun').disabled=false});
+  $('#scRun').onclick=()=>{ac();Object.assign(D,s.set);D.o=100;D.c=10;D.hist=[];D.lock=true;D.run=false;scT=0;syncDomeInputs();$('#scRun').disabled=true;$('#scFb').className='fb info';$('#scFb').textContent='Đang quan sát…';$$('#scenBox .opt').forEach(x=>x.disabled=true)};
+}
+function finishScen(){const s=SC[scCur];D.lock=false;D.run=false;$('#play0').textContent='▶ Chạy thời gian';syncDomeInputs();
+  const ok=scPick===s.a;$$('#scenBox .opt').forEach(b=>{const j=+b.dataset.j;if(j===s.a)b.classList.add('right');else if(j===scPick)b.classList.add('wrong')});
+  $('#scFb').className='fb '+(ok?'ok':'no');$('#scFb').innerHTML=(ok?'Dự đoán đúng! ':'Kết quả khác dự đoán. ')+s.e;ok?ding():oops();
+  scDone[s.k]=1;try{localStorage.setItem('mvss-scen',JSON.stringify(scDone))}catch(e){}renderScen();if(SC.every(x=>scDone[x.k]))stamp('dome')}
+renderScen();
+/* Bảng 28.1 */
+let gSel=null;
+$$('#v-dome .chips .chip').forEach(c=>c.onclick=()=>{gSel=c.dataset.g;$$('#v-dome .chips .chip').forEach(x=>x.classList.toggle('sel',x===c))});
+$$('td.slot').forEach(td=>td.onclick=()=>{td.classList.remove('right','wrong');if(td.textContent&&(!gSel||td.textContent===gSel)){td.textContent='';return}if(gSel){td.textContent=gSel;td.style.color=gSel==='O₂'?'var(--o2)':'var(--co2)'}else toast('Chọn thẻ O₂ hoặc CO₂ trước')});
+$('#chk281').onclick=()=>{let all=true;$$('td.slot').forEach(td=>{const ok=td.textContent===td.dataset.a;td.classList.toggle('right',ok);td.classList.toggle('wrong',!ok);if(!ok)all=false});
+  if(all){$('#f281').className='fb ok';$('#f281').textContent='Chính xác! Quang hợp lấy CO₂, thải O₂; hô hấp (ở cả thực vật và động vật) lấy O₂, thải CO₂.';ding();stamp('table')}else{$('#f281').className='fb no';$('#f281').textContent='Còn ô chưa đúng (tô đỏ). Gợi ý: xem lại thí nghiệm 1 và 2 ở trên.';oops()}};
+mcq('#q0','#f0',['Trao đổi khí cung cấp O₂ cho hô hấp tế bào và thải CO₂ do hô hấp tế bào tạo ra ra ngoài môi trường','Trao đổi khí và hô hấp tế bào không liên quan gì với nhau','Hô hấp tế bào tạo ra O₂ cho cơ thể thải ra ngoài','Trao đổi khí chỉ xảy ra ở thực vật'],0,'Đúng! Trao đổi khí và hô hấp tế bào gắn bó chặt chẽ: lấy O₂ cho tế bào hô hấp, thải CO₂ do tế bào hô hấp tạo ra.','Gợi ý: tế bào hô hấp cần khí gì và tạo ra khí gì?');
+
+/* =========================================================
+   TRẠM 1 – KHÍ KHỔNG
+   ========================================================= */
+const S={h:12,w:1,auto:false,k:0,parts:[],labels:true,spawn:0};
+const sv=$('#stoma');
+// background epidermal cells
+(()=>{const g=el('g',{},sv);const cells=[[-180,-170],[0,-205],[180,-170],[-215,0],[215,0],[-180,170],[0,205],[180,170],[-95,-110],[95,-110],[-95,110],[95,110]];
+  cells.forEach(([x,y],i)=>{const r=68+((i*37)%20);let d='';for(let a=0;a<7;a++){const an=a/7*Math.PI*2+i,rr=r*(.82+((i*13+a*7)%10)/40);d+=(a?'L':'M')+(x+Math.cos(an)*rr).toFixed(1)+' '+(y+Math.sin(an)*rr*.85).toFixed(1)}el('path',{d:d+'Z',fill:'#cfe8bf',stroke:'#9cc58c','stroke-width':3},g)})})();
+const gPore=el('path',{fill:'#1f3326'},sv);
+const gL=el('path',{fill:'#7cc36a',stroke:'#3c7d34','stroke-width':3},sv),gR=el('path',{fill:'#7cc36a',stroke:'#3c7d34','stroke-width':3},sv);
+const wL=el('path',{fill:'none',stroke:'#24561f','stroke-width':9,'stroke-linecap':'round'},sv),wR=el('path',{fill:'none',stroke:'#24561f','stroke-width':9,'stroke-linecap':'round'},sv);
+const chl=[];for(let i=0;i<10;i++)chl.push(el('ellipse',{rx:9,ry:6,fill:'#2f8a4f',stroke:'#1d5c33','stroke-width':1},sv));
+const nucL=el('circle',{r:11,fill:'#c76b4a',stroke:'#8a3d26','stroke-width':2},sv),nucR=el('circle',{r:11,fill:'#c76b4a',stroke:'#8a3d26','stroke-width':2},sv);
+const partG=el('g',{},sv);
+const lblG=el('g',{'font-size':15,'font-weight':700},sv);
+const pinG=el('g',{},sv);
+const LBL=[['Tế bào khí khổng (hình hạt đậu)'],['Lỗ khí'],['Thành trong (dày)'],['Thành ngoài (mỏng)'],['Lục lạp']];
+function stomaGeom(k){const w=3+30*k;return{w,
+  L:`M0 -120 C${-(w+150)} -125 ${-(w+150)} 125 0 120 C${-(w+12)} 80 ${-(w+12)} -80 0 -120Z`,
+  R:`M0 -120 C${w+150} -125 ${w+150} 125 0 120 C${w+12} 80 ${w+12} -80 0 -120Z`,
+  wl:`M0 -116 C${-(w+12)} -78 ${-(w+12)} 78 0 116`, wr:`M0 -116 C${w+12} -78 ${w+12} 78 0 116`,
+  pore:`M0 -118 C${-(w+12)} -80 ${-(w+12)} 80 0 118 C${w+12} 80 ${w+12} -80 0 -118Z`}}
+function openness(h,w){const L=lightAt(h);return L>0?clamp((.12+.88*L)*w,.03,1):.05*w+.02}
+function drawStoma(t,dt){
+  if(S.auto){S.h=(S.h+dt*1.2)%24;$('#sHour').value=S.h}
+  const target=openness(S.h,S.w);S.k+=(target-S.k)*Math.min(1,dt*3);const k=S.k;const G=stomaGeom(k);
+  gL.setAttribute('d',G.L);gR.setAttribute('d',G.R);wL.setAttribute('d',G.wl);wR.setAttribute('d',G.wr);gPore.setAttribute('d',G.pore);
+  const sw=.85+.15*S.w;gL.setAttribute('fill',S.w<.4?'#a9c77a':'#7cc36a');gR.setAttribute('fill',S.w<.4?'#a9c77a':'#7cc36a');
+  chl.forEach((c,i)=>{const side=i<5?-1:1,j=i%5;const yy=-70+j*35,xx=side*(G.w+44+((j%2)*18));c.setAttribute('cx',xx);c.setAttribute('cy',yy);c.setAttribute('transform',`rotate(${side*20} ${xx} ${yy})`)});
+  nucL.setAttribute('cx',-(G.w+70));nucL.setAttribute('cy',8);nucR.setAttribute('cx',G.w+70);nucR.setAttribute('cy',-8);
+  // particles
+  const L=lightAt(S.h);const photo=L>.05;
+  S.spawn+=dt*k*14;
+  while(S.spawn>1){S.spawn--;const a=Math.random()*Math.PI*2;let type,dir;const r=Math.random();
+    if(photo){if(r<.4){type='co2';dir='in'}else if(r<.75){type='o2';dir='out'}else{type='h2o';dir='out'}}
+    else{if(r<.5){type='o2';dir='in'}else if(r<.85){type='co2';dir='out'}else{type='h2o';dir='out'}}
+    const c=el('circle',{r:7,fill:type==='co2'?'#2a6fdb':type==='o2'?'#e0452b':'#25a7c4',stroke:'#fff','stroke-width':1.5},partG);
+    S.parts.push({c,a,dir,p:0,yo:(Math.random()-.5)*150})}
+  S.parts=S.parts.filter(q=>{q.p+=dt*.55;if(q.p>=1){q.c.remove();return false}
+    const rr=q.dir==='in'?240*(1-q.p):240*q.p;const x=Math.cos(q.a)*rr*.9,y=q.yo*(q.dir==='in'?(1-q.p):q.p)*.4+Math.sin(q.a)*rr*.9;
+    const sc=q.dir==='in'?(.3+ .7*(1-q.p)):(.3+.7*q.p);q.c.setAttribute('cx',x);q.c.setAttribute('cy',y);q.c.setAttribute('r',7*sc);q.c.setAttribute('opacity',Math.min(1,(q.dir==='in'?1-q.p:q.p)*3));return true});
+  // labels
+  const w2=G.w;const pos=[[-(w2+75),-30],[0,60],[.5625*(w2+12),-69],[-.72*(w2+150),36],[w2+44,70]];
+  const LP=[[-178,-160],[30,205],[40,-175],[-215,125],[110,140]];
+  lblG.innerHTML='';pinG.innerHTML='';
+  pos.forEach(([x,y],i)=>{if(S.labels){const [tx,ty]=LP[i];const tt=el('text',{x:tx+6,y:ty+5,fill:'#123227'},lblG);tt.textContent=LBL[i][0];const wd=tt.getComputedTextLength()+12;const bg=el('rect',{x:tx,y:ty-12,rx:6,width:wd,height:23,fill:'#fff',opacity:.93});lblG.insertBefore(bg,tt);
+      const ax=clamp(x,tx,tx+wd),ay=ty+(y>ty?11:-12);el('line',{x1:x,y1:y,x2:ax,y2:ay,stroke:'#123227','stroke-width':1.6},lblG);el('circle',{cx:x,cy:y,r:5,fill:'#f3a712',stroke:'#fff','stroke-width':2},lblG)}
+    else{el('circle',{cx:x,cy:y,r:15,fill:'#f3a712',stroke:'#fff','stroke-width':3},pinG);const tt=el('text',{x,y:y+5,'text-anchor':'middle',fill:'#fff','font-size':16,'font-weight':800},pinG);tt.textContent=i+1}});
+  // side panel
+  $('#sOpenV').textContent=Math.round(k*100)+'%';$('#sOpenBar').style.width=k*100+'%';
+  const hh=Math.floor(S.h);$('#sh').textContent=`${hh} giờ ${photo?'☀':'☾'}`;$('#sw').textContent=S.w>.75?'đủ nước':S.w>.4?'hơi thiếu nước':'thiếu nước';
+  $('#sMode').innerHTML=(photo?`☀ <b>Có ánh sáng:</b> quang hợp mạnh hơn hô hấp → khí <span class="co2">CO₂</span> khuếch tán vào lá, khí <span class="o2">O₂</span> khuếch tán ra môi trường.`:`☾ <b>Không có ánh sáng:</b> cây chỉ hô hấp → khí <span class="o2">O₂</span> khuếch tán vào lá, khí <span class="co2">CO₂</span> ra môi trường.`)+(S.w<.4?' <br>💧 <b>Thiếu nước:</b> tế bào khí khổng xẹp, lỗ khí gần như đóng lại – trao đổi khí và thoát hơi nước giảm mạnh.':' Hơi nước cũng thoát ra qua khí khổng.');
+}
+function drawOpenChart(){const cv=$('#openChart'),g=cv.getContext('2d'),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
+  const X=h=>34+(W-44)*h/24,Y=v=>12+(H-36)*(1-v);g.strokeStyle='#e3ece6';[0,6,12,18,24].forEach(h=>{g.beginPath();g.moveTo(X(h),10);g.lineTo(X(h),H-24);g.stroke()});
+  g.fillStyle='#4d6a5d';g.font='12px sans-serif';[0,6,12,18,24].forEach(h=>g.fillText(h+'h',X(h)-8,H-8));g.fillText('mở',2,18);g.fillText('đóng',2,H-26);
+  g.strokeStyle='#2f8a4f';g.lineWidth=2.5;g.beginPath();for(let h=0;h<=24;h+=.25){const v=openness(h,1);h?g.lineTo(X(h),Y(v)):g.moveTo(X(h),Y(v))}g.stroke();
+  g.fillStyle='#f3a712';g.beginPath();g.arc(X(S.h),Y(openness(S.h,S.w)),6,0,7);g.fill()}
+$('#sHour').oninput=e=>{S.h=+e.target.value;S.auto=false;$('#sAuto').checked=false};
+$('#sWater').oninput=e=>{S.w=+e.target.value};
+$('#sLabels').onchange=e=>{S.labels=e.target.checked};$('#sAuto').onchange=e=>{S.auto=e.target.checked};
+// label quiz
+const LOPTS=LBL.map(x=>x[0]);
+$('#lblq').innerHTML=LBL.map((x,i)=>`<span class="pin">${i+1}</span><select data-i="${i}"><option value="">– chọn tên –</option>${shuf(LOPTS.length).map(j=>`<option>${LOPTS[j]}</option>`).join('')}</select>`).join('');
+$('#chkLbl').onclick=()=>{if(S.labels){$('#fLbl').className='fb info';$('#fLbl').textContent='Hãy tắt “Hiện tên các bộ phận” trước khi làm bài nhé!';return}let ok=0;$$('#lblq select').forEach(s=>{const r=s.value===LBL[+s.dataset.i][0];s.className=r?'right':'wrong';if(r)ok++});
+  if(ok===LBL.length){$('#fLbl').className='fb ok';$('#fLbl').textContent='Tuyệt vời! Mỗi khí khổng gồm hai tế bào hình hạt đậu nằm áp sát nhau, thành ngoài mỏng, thành trong dày.';ding();lblDone=1;chkStoma()}else{$('#fLbl').className='fb no';$('#fLbl').textContent=`Đúng ${ok}/${LBL.length}. Bật lại tên để xem rồi thử lần nữa.`;oops()}};
+let lblDone=0,sq={};const chkStoma=()=>{if(lblDone&&Object.keys(sq).length===4)stamp('stoma')};
+mcq('#q1a','#f1a',['Thành trong dày, thành ngoài mỏng: khi tế bào no nước, thành ngoài giãn nhiều hơn làm tế bào cong ra, lỗ khí mở; khi mất nước, tế bào xẹp, lỗ khí đóng','Hai tế bào khí khổng luôn cố định nên lỗ khí luôn mở','Tế bào khí khổng không chứa nước nên khí đi qua dễ dàng','Thành ngoài dày, thành trong mỏng nên lỗ khí luôn đóng'],0,'Đúng! Nhờ cấu tạo đặc biệt, khí khổng có thể đóng, mở để điều chỉnh trao đổi khí.','Gợi ý: kéo thanh “Lượng nước” và quan sát hình dạng hai tế bào khí khổng.',()=>{sq.a=1;chkStoma()});
+mcq('#q1b','#f1b',['Quang hợp: CO₂ đi vào lá, O₂ đi ra; hô hấp: O₂ đi vào lá, CO₂ đi ra','Quang hợp và hô hấp đều lấy CO₂, thải O₂','Quang hợp: O₂ đi vào lá, CO₂ đi ra; hô hấp thì ngược lại','Chỉ quang hợp mới trao đổi khí qua khí khổng'],0,'Chính xác! Hai quá trình trao đổi khí theo chiều ngược nhau.','Gợi ý: kéo thanh giờ sang ban đêm và so sánh màu các chấm khí đi vào, đi ra.',()=>{sq.b=1;chkStoma()});
+mcq('#q1c','#f1c',['Ánh sáng và nước','Chỉ có nhiệt độ','Màu sắc của chậu cây','Kích thước của lá'],0,'Đúng! Khí khổng mở khi được chiếu sáng và cung cấp đủ nước; độ mở tăng từ sáng đến trưa rồi giảm dần, nhỏ nhất vào chiều tối.','Gợi ý: hai thanh trượt của mô phỏng chính là hai yếu tố này.',()=>{sq.c=1;chkStoma()});
+mcq('#q1d','#f1d',['Khí khổng đóng lại, CO₂ khó vào lá nên trao đổi khí và quang hợp giảm','Khí khổng mở to hơn để lấy thêm nước','Không ảnh hưởng gì đến trao đổi khí','Cây quang hợp mạnh hơn'],0,'Đúng! Vì vậy cần tưới đủ nước để cây trao đổi khí thuận lợi.','Gợi ý: kéo thanh “Lượng nước” về thiếu nước và quan sát lỗ khí.',()=>{sq.d=1;chkStoma()});
+
+/* =========================================================
+   TRẠM 2 – ĐỘNG VẬT
+   ========================================================= */
+const ANI=[
+ {n:'Giun đất',o:'Da',svg:`<path d="M10 70 C30 40 50 90 70 60 S110 40 130 64 S160 80 175 58" stroke="#d98b8b" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M60 64 l0 0" /><g stroke="#b86b6b" stroke-width="2">${[40,70,100,130,155].map(x=>`<line x1="${x}" y1="52" x2="${x}" y2="80"/>`).join('')}</g>`,gas:`<text x="60" y="26" fill="#e0452b" font-weight="800" font-size="14">O₂↓</text><text x="110" y="26" fill="#2a6fdb" font-weight="800" font-size="14">CO₂↑</text>`},
+ {n:'Châu chấu',o:'Hệ thống ống khí',svg:`<ellipse cx="95" cy="58" rx="58" ry="17" fill="#7cbf5a"/><circle cx="38" cy="54" r="15" fill="#86c964"/><circle cx="32" cy="50" r="3" fill="#123"/><path d="M110 50 L150 20 L172 76" stroke="#5c9c3e" stroke-width="5" fill="none"/><path d="M60 70 l-10 20 M80 72 l0 20 M100 72 l8 20" stroke="#5c9c3e" stroke-width="3"/><path d="M30 42 C20 20 10 14 2 12" stroke="#5c9c3e" stroke-width="2" fill="none"/><g stroke="#2a6fdb" stroke-width="1.6" fill="none" opacity=".8"><path d="M50 58 H140"/>${[65,85,105,125].map(x=>`<path d="M${x} 58 l-6 10 M${x} 58 l6 10"/>`).join('')}</g>`,gas:`<text x="60" y="22" fill="#e0452b" font-weight="800" font-size="14">O₂↓</text><text x="100" y="98" fill="#2a6fdb" font-weight="800" font-size="14">CO₂↑</text>`},
+ {n:'Cá',o:'Mang',svg:`<path d="M20 55 C50 20 120 20 150 55 C120 90 50 90 20 55Z" fill="#7fa7c9"/><path d="M150 55 L180 30 L180 80Z" fill="#6a93b6"/><circle cx="42" cy="50" r="5" fill="#fff"/><circle cx="42" cy="50" r="2.5" fill="#123"/><path d="M62 38 C70 50 70 62 62 74" stroke="#c9463d" stroke-width="5" fill="none"/><path d="M70 40 C77 50 77 62 70 72" stroke="#e06b5f" stroke-width="3" fill="none"/>`,gas:`<text x="2" y="24" fill="#e0452b" font-weight="800" font-size="14">O₂→</text><text x="74" y="98" fill="#2a6fdb" font-weight="800" font-size="14">CO₂↓</text>`},
+ {n:'Mèo',o:'Phổi',svg:`<ellipse cx="100" cy="62" rx="55" ry="24" fill="#a7a7a7"/><circle cx="40" cy="44" r="18" fill="#b3b3b3"/><path d="M28 30 L30 14 L40 28 M46 28 L54 14 L54 32" fill="#b3b3b3"/><circle cx="34" cy="42" r="2.5" fill="#123"/><path d="M155 60 C175 50 180 30 170 20" stroke="#a7a7a7" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M60 82 v14 M80 84 v14 M120 84 v14 M140 82 v14" stroke="#999" stroke-width="7" stroke-linecap="round"/><path d="M34 52 C50 54 60 50 72 52" stroke="#d9a35b" stroke-width="3" fill="none"/><ellipse cx="88" cy="58" rx="16" ry="12" fill="#c95e5e" opacity=".85"/>`,gas:`<text x="2" y="78" fill="#e0452b" font-weight="800" font-size="14">O₂</text><text x="2" y="94" fill="#2a6fdb" font-weight="800" font-size="14">CO₂</text>`},
+];
+const ORG=['Da','Hệ thống ống khí','Mang','Phổi'];let orgSel=null,zooOk={};
+$('#orgChips').innerHTML=shuf(4).map(i=>`<button class="chip" data-o="${ORG[i]}">${ORG[i]}</button>`).join('');
+$('#zoo').innerHTML=shuf(4).map(i=>{const a=ANI[i];return `<div class="ani" data-i="${i}" role="button" tabindex="0"><svg viewBox="0 0 185 100">${a.svg}<g class="gas">${a.gas}</g></svg><b>${a.n}</b><span class="org">?</span></div>`}).join('');
+$$('#orgChips .chip').forEach(c=>c.onclick=()=>{if(c.disabled)return;orgSel=c.dataset.o;$$('#orgChips .chip').forEach(x=>x.classList.toggle('sel',x===c))});
+$$('.ani').forEach(d=>{const act=()=>{ac();const a=ANI[+d.dataset.i];if(zooOk[a.n])return;if(!orgSel){toast('Chọn tên cơ quan trước');return}
+  if(orgSel===a.o){zooOk[a.n]=1;d.classList.add('right');d.querySelector('.org').textContent=a.o;const c=$(`#orgChips .chip[data-o="${a.o}"]`);c.disabled=true;c.classList.remove('sel');orgSel=null;ding();
+    const n=Object.keys(zooOk).length;$('#fZoo').className='fb ok';$('#fZoo').textContent=n<4?`Đúng! ${a.n} trao đổi khí qua ${a.o.toLowerCase()}. (${n}/4)`:'Hoàn thành! Tuỳ từng loài, cơ quan trao đổi khí là da, hệ thống ống khí, mang hay phổi.';chkZoo()}
+  else{d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');$('#fZoo').className='fb no';$('#fZoo').textContent=`${a.n} không trao đổi khí qua ${orgSel.toLowerCase()}. Thử lại nhé!`;oops()}};
+  d.onclick=act;d.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}}});
+const CYC=['?','O₂','CO₂'];let diagOk=0;
+$$('.slot2').forEach(s=>s.onclick=()=>{s.classList.remove('right','wrong');const i=(CYC.indexOf(s.textContent)+1)%3;s.textContent=CYC[i];s.style.color=i===1?'var(--o2)':i===2?'var(--co2)':''});
+$('#chkDiag').onclick=()=>{let ok=true;$$('.slot2').forEach(s=>{const r=s.textContent===s.dataset.a;s.classList.toggle('right',r);s.classList.toggle('wrong',!r);if(!r)ok=false});
+  if(ok){$('#fDiag').className='fb ok';$('#fDiag').textContent='Chính xác! O₂ từ môi trường qua cơ quan trao đổi khí tới tất cả các tế bào trong cơ thể; CO₂ từ các tế bào đi theo chiều ngược lại ra môi trường.';ding();diagOk=1;chkZoo()}else{$('#fDiag').className='fb no';$('#fDiag').textContent='Chưa đúng. Nhớ: tế bào cần O₂ để hô hấp và thải ra CO₂.';oops()}};
+const chkZoo=()=>{if(diagOk&&Object.keys(zooOk).length===4)stamp('zoo')};
+
+/* =========================================================
+   TRẠM 3 – NGƯỜI
+   ========================================================= */
+const hs=$('#human');
+const PTS={nose:[262,92],phar:[226,120],lar:[206,168],tra:[200,212],bro:[200,262],lungL:[146,322],lungR:[254,322]};
+(()=>{
+  el('path',{d:'M110 540 L110 300 C110 230 140 200 200 200 C260 200 290 230 290 300 L290 540Z',fill:'#f7d9c4',opacity:.75},hs);
+  el('path',{d:'M60 540 C60 300 80 220 150 200 L250 200 C320 220 340 300 340 540Z',fill:'#f2cdb3'},hs);
+  el('rect',{x:178,y:140,width:44,height:70,fill:'#f2cdb3'},hs);
+  el('ellipse',{cx:205,cy:88,rx:60,ry:66,fill:'#f2cdb3'},hs);
+  el('path',{d:'M258 70 C276 86 278 98 264 104',fill:'#e9bb9c',stroke:'#c99a7a','stroke-width':2},hs);
+  el('path',{d:'M160 40 C170 14 240 10 262 46 C240 34 200 34 160 40Z',fill:'#3b2b22'},hs);
+  el('circle',{cx:238,cy:76,r:4,fill:'#3b2b22'},hs);
+})();
+const lungG=el('g',{},hs);
+const lungL=el('path',{d:'M188 262 C150 250 104 292 104 380 C104 420 140 430 188 412Z',fill:'#e98a8a',stroke:'#b85555','stroke-width':3},lungG);
+const lungR=el('path',{d:'M212 262 C250 250 296 292 296 380 C296 420 260 430 212 412Z',fill:'#e98a8a',stroke:'#b85555','stroke-width':3},lungG);
+const dia=el('path',{d:'M90 440 C140 400 260 400 310 440',fill:'none',stroke:'#a0524a','stroke-width':6,'stroke-linecap':'round'},hs);
+const airway=el('path',{d:'M262 92 C250 100 236 108 226 120 C214 134 208 150 206 168 L200 212 L200 262 M200 262 C186 276 170 290 146 322 M200 262 C214 276 230 290 254 322',fill:'none',stroke:'#cfe7f7','stroke-width':12,'stroke-linecap':'round','stroke-linejoin':'round'},hs);
+el('path',{d:'M262 92 C250 100 236 108 226 120 C214 134 208 150 206 168 L200 212 L200 262 M200 262 C186 276 170 290 146 322 M200 262 C214 276 230 290 254 322',fill:'none',stroke:'#7fb2d6','stroke-width':3,'stroke-dasharray':'1 7','stroke-linecap':'round'},hs);
+const ORGANS=[['nose','Mũi'],['phar','Hầu'],['lar','Thanh quản'],['tra','Khí quản'],['bro','Phế quản'],['lungL','Phổi (phế nang)']];
+const orgLbl={};ORGANS.forEach(([k,n])=>{const [x,y]=PTS[k];const g=el('g',{},hs);el('circle',{cx:x,cy:y,r:9,fill:'#fff',stroke:'#123227','stroke-width':2.5},g);const left=k==='lungL'||k==='tra'||k==='bro';const t=el('text',{x:k==='nose'?x+14:left?x-16:x+16,y:y+5,'text-anchor':k==='nose'?'start':left?'end':'start','font-size':15,'font-weight':700,fill:'#123227',opacity:0},g);t.textContent=n;orgLbl[k]={g,t}});
+const mol=el('g',{opacity:0},hs);el('circle',{r:12,fill:'#e0452b',stroke:'#fff','stroke-width':2},mol);const mt=el('text',{y:4,'text-anchor':'middle','font-size':10,'font-weight':800,fill:'#fff'},mol);mt.textContent='O₂';
+const H={b:0,hold:false,count:0,parts:[],spawn:0,mol:null,molT:0,from:null,to:null};
+const PATHPTS=[PTS.nose,PTS.phar,PTS.lar,PTS.tra,PTS.bro];
+function along(p,list){const n=list.length-1;const f=clamp(p,0,1)*n;const i=Math.min(n-1,Math.floor(f)),k=f-i;return[list[i][0]+(list[i+1][0]-list[i][0])*k,list[i][1]+(list[i+1][1]-list[i][1])*k]}
+function drawHuman(t,dt){
+  H.b+=(H.hold?1:-1)*dt*1.4;H.b=clamp(H.b,0,1);
+  const s=1+.13*H.b;lungG.setAttribute('transform',`translate(200 340) scale(${s} ${1+.1*H.b}) translate(-200 -340)`);
+  dia.setAttribute('d',`M90 ${440+H.b*14} C140 ${400+H.b*40} 260 ${400+H.b*40} 310 ${440+H.b*14}`);
+  H.spawn+=dt*(H.hold&&H.b<1?10:(!H.hold&&H.b>0?10:0));
+  while(H.spawn>1){H.spawn--;const inh=H.hold;const side=Math.random()<.5?PTS.lungL:PTS.lungR;const list=[...PATHPTS,side];const c=el('circle',{r:5,fill:inh?'#e0452b':'#2a6fdb',opacity:.9},hs);H.parts.push({c,list,p:inh?0:1,dir:inh?1:-1})}
+  H.parts=H.parts.filter(q=>{q.p+=q.dir*dt*.9;if(q.p>1.02||q.p<-.02){q.c.remove();return false}const[x,y]=along(q.p,q.list);q.c.setAttribute('cx',x+(Math.random()-.5)*3);q.c.setAttribute('cy',y);return true});
+  if(H.mol){H.molT=Math.min(1,H.molT+dt*2.2);const x=H.from[0]+(H.to[0]-H.from[0])*H.molT,y=H.from[1]+(H.to[1]-H.from[1])*H.molT;mol.setAttribute('transform',`translate(${x} ${y})`);mol.setAttribute('opacity',1)}
+}
+const inh=$('#inhale');
+const startH=e=>{e.preventDefault();ac();H.hold=true;inh.textContent='⬆ Thả ra: Thở ra';tone(220,.5,'sine',.03)};
+const endH=()=>{if(!H.hold)return;H.hold=false;inh.textContent='⬇ Nhấn giữ: Hít vào';if(H.b>.5){H.count++;$('#breathCount').textContent='Số hơi thở: '+H.count;chkHuman()}};
+inh.addEventListener('pointerdown',startH);addEventListener('pointerup',endH);addEventListener('pointercancel',endH);
+inh.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat)startH(e)});inh.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')endH()});
+let pathStep=0,pathDone=0;
+function renderPath(){$('#pathChips').innerHTML=shuf(ORGANS.length).map(i=>`<button class="chip" data-k="${ORGANS[i][0]}">${ORGANS[i][1]}</button>`).join('');$('#pathOut').innerHTML='<span style="color:var(--mute);font-size:14px">Không khí → …</span>';pathStep=0;H.mol=null;mol.setAttribute('opacity',0);Object.values(orgLbl).forEach(o=>o.t.setAttribute('opacity',0));
+  $$('#pathChips .chip').forEach(c=>c.onclick=()=>{ac();if(c.disabled||pathStep>=ORGANS.length)return;const want=ORGANS[pathStep][0];
+    if(c.dataset.k===want){c.disabled=true;if(pathStep===0)$('#pathOut').innerHTML='';$('#pathOut').insertAdjacentHTML('beforeend',`<span class="chip sel" style="background:var(--leaf);border-color:var(--leaf)">${pathStep+1}. ${c.textContent}</span>`);orgLbl[want].t.setAttribute('opacity',1);
+      const to=PTS[want];H.from=H.mol?H.to:[300,80];H.to=to;H.mol=1;H.molT=0;pathStep++;tone(440+pathStep*60,.12);
+      if(pathStep===ORGANS.length){$('#fPath').className='fb ok';$('#fPath').textContent='Tuyệt vời! Không khí đi qua: mũi → hầu → thanh quản → khí quản → phế quản → phổi. Tại phế nang, O₂ khuếch tán vào máu.';ding();pathDone=1;chkHuman()}else{$('#fPath').className='fb';}}
+    else{$('#fPath').className='fb no';$('#fPath').textContent=`Chưa đúng: sau ${pathStep?ORGANS[pathStep-1][1].toLowerCase():'môi trường'}, không khí chưa tới “${c.textContent}”.`;oops()}})}
+$('#pathReset').onclick=()=>{renderPath();$('#fPath').className='fb'};renderPath();
+// alveolus
+const av=$('#alv');
+(()=>{el('rect',{x:0,y:0,width:420,height:210,fill:'#fff6f2'},av);
+  el('path',{d:'M40 120 C20 40 140 0 210 20 C290 0 400 40 380 120Z',fill:'#f9c9c2',stroke:'#c76b62','stroke-width':3},av);
+  const t1=el('text',{x:210,y:60,'text-anchor':'middle','font-size':16,'font-weight':700,fill:'#7a2f28'},av);t1.textContent='Phế nang (chứa không khí)';
+  el('rect',{x:20,y:132,width:380,height:46,rx:23,fill:'#c9302c'},av);
+  const t2=el('text',{x:210,y:200,'text-anchor':'middle','font-size':14,'font-weight':700,fill:'#7a2f28'},av);t2.textContent='Mao mạch (máu) – dòng máu chảy →';})();
+const AP=[];const avG=el('g',{},av);
+function drawAlv(t,dt){if(Math.random()<dt*6){const o2=Math.random()<.5;const x=60+Math.random()*300;const c=el('circle',{r:6,fill:o2?'#e0452b':'#2a6fdb',stroke:'#fff','stroke-width':1.5},avG);AP.push({c,x,o2,p:0})}
+  for(let i=AP.length-1;i>=0;i--){const q=AP[i];q.p+=dt*.45;if(q.p>=1){q.c.remove();AP.splice(i,1);continue}const y=q.o2?70+q.p*85:155-q.p*85;q.c.setAttribute('cx',q.x+q.p*40);q.c.setAttribute('cy',y)}}
+mcq('#q3a','#f3a',['O₂ từ phế nang khuếch tán vào máu; CO₂ từ máu khuếch tán vào phế nang','CO₂ từ phế nang vào máu; O₂ từ máu vào phế nang','Cả O₂ và CO₂ đều đi từ máu vào phế nang','Không có khí nào đi qua thành phế nang'],0,'Đúng! Tại phổi, O₂ khuếch tán từ phế nang vào máu; CO₂ từ máu khuếch tán vào phế nang.','Gợi ý: quan sát màu và hướng đi của các chấm trong hình phế nang.',()=>{h3.a=1;chkHuman()});
+mcq('#q3b','#f3b',['Tế bào → máu → phế nang → phế quản → khí quản → thanh quản → hầu → mũi → môi trường','Tế bào → mũi → môi trường','Tế bào → dạ dày → môi trường','Tế bào → phế nang → máu → tế bào'],0,'Chính xác! CO₂ được máu chuyển về phổi, khuếch tán vào phế nang rồi theo đường dẫn khí ra ngoài khi thở ra.','Gợi ý: CO₂ đi theo chiều ngược lại của O₂.',()=>{h3.b=1;chkHuman()});
+mcq('#q3c','#f3c',['Không khí không vào được phổi, cơ thể thiếu O₂ – rất nguy hiểm đến tính mạng','Không ảnh hưởng vì ta có thể thở bằng da','Cơ thể sẽ nhận được nhiều O₂ hơn','Chỉ bị ho nhẹ, không nguy hiểm'],0,'Đúng! Vì vậy cần giữ đường thở thông thoáng, không ngậm đồ vật nhỏ khi chạy nhảy, không cười đùa khi ăn.','Gợi ý: không khí phải đi qua đường dẫn khí mới tới được phổi.',()=>{h3.c=1;chkHuman()});
+const h3={};const chkHuman=()=>{if(pathDone&&H.count>=3&&Object.keys(h3).length===3)stamp('human')};
+
+/* =========================================================
+   TRẠM 4 – PHÒNG
+   ========================================================= */
+const rs=$('#room');const R={stove:false,win:false,plant:false,o:100,co:0,t:0};
+(()=>{el('rect',{width:600,height:340,fill:'#f4e9d8'},rs);el('rect',{y:280,width:600,height:60,fill:'#c89f74'},rs);
+  // window
+  const wg=el('g',{},rs);el('rect',{x:400,y:50,width:150,height:120,fill:'#24365c',stroke:'#7b5a3c','stroke-width':8},wg);
+  for(let i=0;i<10;i++)el('circle',{cx:410+Math.random()*130,cy:60+Math.random()*100,r:1.5,fill:'#fff'},wg);
+  R.winL=el('rect',{x:404,y:54,width:71,height:112,fill:'#9fc4d9',opacity:.75,stroke:'#7b5a3c','stroke-width':4},rs);R.winR=el('rect',{x:475,y:54,width:71,height:112,fill:'#9fc4d9',opacity:.75,stroke:'#7b5a3c','stroke-width':4},rs);
+  // bed + sleeper
+  el('rect',{x:40,y:200,width:230,height:60,rx:8,fill:'#7c95c8'},rs);el('rect',{x:40,y:255,width:230,height:12,fill:'#5b5b7a'},rs);el('rect',{x:40,y:186,width:60,height:30,rx:10,fill:'#fff'},rs);
+  R.face=el('circle',{cx:78,cy:194,r:16,fill:'#f2cdb3'},rs);el('path',{d:'M90 210 C150 196 220 196 268 206 L268 230 L90 230Z',fill:'#e8a96b'},rs);
+  R.zz=el('text',{x:96,y:170,'font-size':20,'font-weight':800,fill:'#123227'},rs);R.zz.textContent='z z';
+  R.warn=el('text',{x:60,y:160,'font-size':26,opacity:0},rs);R.warn.textContent='😵';
+  // stove
+  R.stG=el('g',{transform:'translate(330 230)'},rs);el('rect',{x:-26,y:0,width:52,height:52,rx:6,fill:'#666'},R.stG);el('rect',{x:-22,y:-6,width:44,height:10,rx:3,fill:'#888'},R.stG);
+  R.fire=el('path',{d:'M-14 -6 C-12 -26 -2 -24 0 -40 C4 -24 14 -26 14 -6Z',fill:'#f47a1f',opacity:0},R.stG);
+  R.smoke=el('g',{},rs);for(let i=0;i<14;i++)el('circle',{r:10,fill:'#777',opacity:0},R.smoke);
+  // plant
+  R.pl=el('g',{transform:'translate(300 280)',opacity:0},rs);el('path',{d:'M-16 0 L-12 -24 L12 -24 L16 0Z',fill:'#b8643b'},R.pl);[-10,-4,3,9].forEach((x,i)=>el('path',{d:`M${x} -24 C${x-4} -60 ${x+4} -80 ${x+(i%2?6:-6)} -96 C${x+8} -70 ${x+6} -44 ${x+5} -24Z`,fill:i%2?'#3f8f4a':'#5aa75f',stroke:'#e8d77a','stroke-width':1.5},R.pl));
+})();
+function drawRoom(t,dt){
+  if(R.stove){R.co+=(R.win?.3:5)*dt;R.o-=(R.win?.1:1.6)*dt}
+  if(R.win){R.co+=(0-R.co)*dt*.6;R.o+=(100-R.o)*dt*.6}
+  if(R.plant&&!R.win)R.o+=.05*dt;
+  R.co=clamp(R.co,0,100);R.o=clamp(R.o,0,100);
+  $('#rO').style.width=R.o+'%';$('#rCO').style.width=R.co+'%';
+  R.winL.setAttribute('x',R.win?360:404);R.winR.setAttribute('x',R.win?548:475);
+  R.fire.setAttribute('opacity',R.stove?.75+.25*Math.sin(t*12):0);
+  [...R.smoke.children].forEach((c,i)=>{const p=((t*.25+i/14)%1);c.setAttribute('cx',330+Math.sin(p*6+i)*30+p*(R.win?120:0));c.setAttribute('cy',220-p*200);c.setAttribute('opacity',R.stove?(1-p)*clamp(R.co/60,.15,.6):0)});
+  R.pl.setAttribute('opacity',R.plant?1:0);
+  const danger=R.co>55,warn=R.co>25;R.face.setAttribute('fill',danger?'#e0b9c2':'#f2cdb3');R.warn.setAttribute('opacity',danger?1:0);R.zz.setAttribute('opacity',danger?0:.4+.4*Math.sin(t*2));
+  let s;if(danger)s='🚨 NGUY HIỂM! Khí độc tích tụ, người trong phòng có thể ngạt khí, nguy hiểm đến tính mạng. Hãy dập bếp và mở cửa ngay!';
+  else if(warn)s='⚠ Khí độc đang tăng, O₂ giảm: người ngủ có thể bị đau đầu, khó thở…';
+  else if(R.stove&&R.win)s='Cửa sổ mở: không khí lưu thông, khí độc thoát ra ngoài. (Tốt nhất vẫn là không đốt than trong phòng ngủ.)';
+  else s='Căn phòng có không khí trong lành.';
+  if(R.plant&&R.stove&&!R.win&&warn)s+=' Chậu lưỡi hổ không đủ để khử khí độc từ bếp than!';
+  $('#rStatus').textContent=s;$('#rStatus').style.background=danger?'var(--badbg)':warn?'#fff3d6':'#f1f6f2';
+  if(danger&&!R.seenDanger){R.seenDanger=1;tone(880,.2,'square',.05);tone(880,.2,'square',.05,.3)}
+  if(R.seenDanger&&R.win&&R.co<15&&!R.fixed){R.fixed=1;toast('Đã thông gió – không khí an toàn trở lại');chkSafe()}
+}
+$('#stoveBtn').onclick=()=>{ac();R.stove=!R.stove;$('#stoveBtn').textContent=R.stove?'🧯 Dập bếp than':'🔥 Đốt bếp than'};
+$('#winBtn').onclick=()=>{R.win=!R.win;$('#winBtn').textContent=R.win?'🪟 Đóng cửa sổ':'🪟 Mở cửa sổ'};
+$('#plantBtn').onclick=()=>{R.plant=!R.plant;$('#plantBtn').textContent=R.plant?'🪴 Bỏ chậu lưỡi hổ':'🪴 Đặt chậu lưỡi hổ'};
+$('#roomReset').onclick=()=>{Object.assign(R,{stove:false,win:false,plant:false,o:100,co:0});$('#stoveBtn').textContent='🔥 Đốt bếp than';$('#winBtn').textContent='🪟 Mở cửa sổ';$('#plantBtn').textContent='🪴 Đặt chậu lưỡi hổ'};
+let s4={};const chkSafe=()=>{if(R.fixed&&s4.a&&s4.b)stamp('safe')};
+mcq('#q4a','#f4a',['Khí than chứa nhiều CO₂ và CO; trong phòng kín các khí này tích tụ, O₂ giảm, có thể gây ngạt, nguy hiểm đến tính mạng','Vì bếp than làm phòng quá sáng','Vì than làm tăng lượng O₂ trong phòng','Vì cây lưỡi hổ sẽ bị héo'],0,'Đúng! Không sưởi ấm bằng cách đốt than, củi trong phòng kín; luôn giữ nhà thông thoáng.','Gợi ý: thử đốt bếp than khi đóng kín cửa và quan sát hai thanh đo.',()=>{s4.a=1;chkSafe()});
+const ACTS=[['Giữ nhà cửa luôn thông thoáng',1],['Trồng nhiều cây xanh quanh nhà, trường học',1],['Đeo khẩu trang khi ra đường nhiều khói bụi',1],['Tập thể dục, hít thở sâu nơi không khí trong lành',1],['Vệ sinh mũi, họng sạch sẽ',1],['Sưởi ấm bằng bếp than trong phòng ngủ đóng kín',0],['Hút thuốc lá hoặc đứng gần người hút thuốc',0],['Đốt rác, đốt rơm rạ gần khu dân cư',0],['Vừa ăn vừa cười đùa, chạy nhảy',0]];
+let actSel=null,sorted={};
+function renderPile(){$('#pile').innerHTML=shuf(ACTS.length).filter(i=>!(i in sorted)).map(i=>`<button class="chip" data-i="${i}">${ACTS[i][0]}</button>`).join('');$$('#pile .chip').forEach(c=>c.onclick=()=>{actSel=+c.dataset.i;$$('#pile .chip').forEach(x=>x.classList.toggle('sel',x===c));$('#pickBin').style.display='flex';$('#pickTxt').textContent='→'})}
+$$('#pickBin button').forEach(b=>b.onclick=()=>{if(actSel==null)return;const good=b.dataset.b==='good';const a=ACTS[actSel];
+  if((a[1]===1)===good){sorted[actSel]=1;$(good?'#binGood':'#binBad').insertAdjacentHTML('beforeend',`<div class="it">${a[0]}</div>`);ding();actSel=null;$('#pickBin').style.display='none';renderPile();
+    if(Object.keys(sorted).length===ACTS.length){$('#fSort').className='fb ok';$('#fSort').textContent='Hoàn thành! Em đã biết những việc làm có lợi cho quá trình trao đổi khí ở người.';s4.b=1;chkSafe()}else $('#fSort').className='fb'}
+  else{$('#fSort').className='fb no';$('#fSort').textContent=`Suy nghĩ lại: “${a[0]}” ${a[1]?'giúp':'gây hại cho'} quá trình trao đổi khí.`;oops()}});
+renderPile();
+
+/* =========================================================
+   TRẠM 5 – QUIZ
+   ========================================================= */
+const QZ=[
+ ['Trao đổi khí giữa cơ thể sinh vật với môi trường diễn ra theo cơ chế nào?',['Khuếch tán','Thẩm thấu chủ động','Lọc','Bay hơi'],0],
+ ['Thực vật trao đổi khí với môi trường chủ yếu qua bộ phận nào?',['Khí khổng ở lá','Rễ cây','Hoa','Vỏ thân'],0],
+ ['Mỗi khí khổng gồm:',['Hai tế bào hình hạt đậu nằm áp sát nhau','Một tế bào hình tròn','Bốn tế bào hình vuông','Nhiều tế bào lông hút'],0],
+ ['Ở hầu hết thực vật, khí khổng mở khi nào?',['Khi được chiếu sáng và cung cấp đủ nước','Khi trời tối và thiếu nước','Chỉ vào lúc nửa đêm','Khi cây bị héo'],0],
+ ['Cơ quan trao đổi khí của cá là:',['Mang','Phổi','Da','Hệ thống ống khí'],0],
+ ['Ở người, O₂ khuếch tán từ đâu vào máu?',['Từ phế nang','Từ khí quản','Từ mũi','Từ thanh quản'],0],
+];
+let qOrder=[],qAns={};
+function renderQuiz(){qAns={};$('#quiz').innerHTML=QZ.map((q,i)=>{const ord=shuf(4);return `<div style="margin-bottom:10px"><p class="q">${i+1}. ${q[0]}</p><div data-q="${i}">${ord.map(j=>`<button class="opt" data-j="${j}">${q[1][j]}</button>`).join('')}</div></div>`}).join('');
+  $$('#quiz [data-q]').forEach(g=>g.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{g.querySelectorAll('.opt').forEach(x=>x.classList.remove('pick'));b.classList.add('pick');qAns[g.dataset.q]=+b.dataset.j}));$('#fQuiz').className='fb';$('#quizChk').disabled=false}
+$('#quizChk').onclick=()=>{let sc=0;$$('#quiz [data-q]').forEach(g=>{const i=+g.dataset.q;g.querySelectorAll('.opt').forEach(b=>{b.disabled=true;const j=+b.dataset.j;if(j===QZ[i][2])b.classList.add('right');else if(qAns[i]===j)b.classList.add('wrong')});if(qAns[i]===QZ[i][2])sc++});
+  $('#quizChk').disabled=true;if(sc>=5){$('#fQuiz').className='fb ok';$('#fQuiz').textContent=`Em đạt ${sc}/6 câu. Xuất sắc!`;ding();stamp('quiz')}else{$('#fQuiz').className='fb no';$('#fQuiz').textContent=`Em đạt ${sc}/6 câu. Cần đúng ít nhất 5 câu để nhận con dấu – bấm “Làm lại” nhé!`;oops()}updCert()};
+$('#quizRe').onclick=renderQuiz;renderQuiz();
+function updCert(){const n=STAMPS.filter(s=>got[s[0]]).length;$('#cert').hidden=!got.quiz;$('#certName').textContent=($('#nm').value||'').trim()||'Nhà khoa học nhí';$('#certN').textContent=`${n}/7 con dấu`}
+$('#nm').oninput=updCert;
+
+/* ---------- info ---------- */
+const INFO=[['Tên học liệu','Mái Vòm Sự Sống'],['Loại học liệu','Học liệu tương tác và mô phỏng (mục II.2.3, Công văn 5158/SGDĐT-GDTrH)'],['Môn học, lớp','Khoa học tự nhiên 7 (phân môn Sinh học) – bộ sách Kết nối tri thức với cuộc sống'],['Bài học','Chương VII. Trao đổi chất và chuyển hoá năng lượng ở sinh vật – Bài 28. Trao đổi khí ở sinh vật'],['Yêu cầu cần đạt','Sử dụng hình ảnh để mô tả được quá trình trao đổi khí qua tế bào khí khổng ở lá. Dựa vào hình vẽ, mô tả được cấu tạo khí khổng và nêu được chức năng của khí khổng. Dựa vào sơ đồ khái quát, mô tả được đường đi của khí qua các cơ quan của hệ hô hấp ở động vật (ví dụ ở người).'],['Mục đích, đối tượng','Giáo viên dùng trong các hoạt động mở đầu, hình thành kiến thức, luyện tập, vận dụng; học sinh lớp 7 tự học, ôn tập. Dùng được trong dạy học trực tiếp, trực tuyến, kết hợp.'],['Hướng dẫn khai thác','Chọn trạm ở thanh lộ trình phía trên. Mỗi trạm có mục “Gợi ý cho giáo viên”. Hoàn thành nhiệm vụ để nhận con dấu (7 con dấu). Chạy trên trình duyệt máy tính, điện thoại, máy tính bảng; không cần cài đặt, không cần đăng nhập; mở được khi không có Internet.'],['Tác giả','Ngô Thị Phương – Tổ Khoa học tự nhiên, Trường THCS Võ Thị Sáu, phường An Biên, thành phố Hải Phòng'],['Nguồn tài liệu','SGK Khoa học tự nhiên 7 (Kết nối tri thức với cuộc sống), Bài 28: nội dung, Hình 28.1–28.4, Bảng 28.1, câu hỏi và mục “Em có biết”. Thí nghiệm bình kín với chuột và cành bạc hà của J. Priestley (1771) là tư liệu lịch sử khoa học phổ biến.'],['Bản quyền','Toàn bộ hình vẽ, mô phỏng do tác giả vẽ bằng mã; âm thanh tổng hợp bằng mã; không dùng hình ảnh, âm thanh của bên thứ ba. Phông chữ Baloo 2, Be Vietnam Pro (giấy phép SIL OFL). Cho phép sử dụng, chỉnh sửa cho mục đích giáo dục, ghi rõ nguồn.'],['Sử dụng trí tuệ nhân tạo','Có dùng trợ lý AI Claude (Anthropic) hỗ trợ thiết kế, viết mã; tác giả đã kiểm tra, xác minh nội dung và chịu trách nhiệm về tính chính xác.'],['Lưu ý khoa học','Mô phỏng mái vòm là mô hình định tính: các con số chỉ dùng để so sánh tăng, giảm, không phải số đo thực tế.'],['An toàn thông tin','Không thu thập, không gửi dữ liệu cá nhân; con dấu và tên in giấy chứng nhận chỉ lưu trên thiết bị của người dùng.'],['Phiên bản','1.0 – tháng 10/2026']];
+$('#infoT').innerHTML=INFO.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('');
+
+/* ---------- loop ---------- */
+let last=performance.now(),T=0;
+function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
+  if(cur==='dome'){
+    if(D.lock){stepDome(dt*3);scT+=dt;if(scT>9)finishScen()}
+    else{if(D.run){D.h=(D.h+dt*.5)%24;$('#hour').value=D.h;$('#hLbl').textContent=Math.floor(D.h)+' giờ'}stepDome(dt*(D.run?1:0))}
+    histT+=dt*(D.lock?3:1);if(histT>.25&&(D.run||D.lock)){histT=0;D.hist.push({o:D.o,c:D.c});if(D.hist.length>240)D.hist.shift()}
+    drawDome(T);drawChart();
+  }else if(cur==='stoma'){drawStoma(T,dt);drawOpenChart()}
+  else if(cur==='human'){drawHuman(T,dt);drawAlv(T,dt)}
+  else if(cur==='safe')drawRoom(T,dt);
+  requestAnimationFrame(loop)}
+renderStamps();const h0=location.hash.slice(1);go(VIEWS.some(v=>v[0]===h0)?h0:'dome');requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
