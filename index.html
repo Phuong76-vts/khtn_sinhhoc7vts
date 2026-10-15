@@ -799,5 +799,79 @@ function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
 renderStamps();const h0=location.hash.slice(1);go(VIEWS.some(v=>v[0]===h0)?h0:'dome');requestAnimationFrame(loop);
 })();
 </script>
+<!-- ===== TRỢ GIẢNG AI – MÁI VÒM SỰ SỐNG (dán ngay TRƯỚC thẻ </body> trong index.html) ===== -->
+<style>
+#tgai-btn{position:fixed;right:18px;bottom:18px;z-index:99999;display:flex;align-items:center;gap:8px;padding:12px 18px;border:none;border-radius:999px;background:linear-gradient(135deg,#2f8a4f,#25a7c4);color:#fff;font:700 15px/1 'Be Vietnam Pro',system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(47,138,79,.35)}
+#tgai-btn:hover{transform:translateY(-2px)}
+#tgai-box{position:fixed;right:18px;bottom:78px;z-index:99999;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 110px);display:none;flex-direction:column;background:#fbfdf9;border:1px solid #cfe0d3;border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.5);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#123227;overflow:hidden}
+#tgai-box.open{display:flex}
+#tgai-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#d8efdc;border-bottom:1px solid #cfe0d3}
+#tgai-head b{font-size:15px}
+#tgai-head small{display:block;font-size:12px;color:#4d6a5d;font-weight:400}
+#tgai-x{background:none;border:none;color:#4d6a5d;font-size:22px;cursor:pointer}
+#tgai-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.tgai-b{padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.5;max-width:88%;white-space:pre-wrap}
+.tgai-a{align-self:flex-start;background:#eaf3ec;border-bottom-left-radius:4px}
+.tgai-u{align-self:flex-end;background:#2f8a4f;color:#fff;border-bottom-right-radius:4px}
+#tgai-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 12px 8px}
+.tgai-c{border:1px solid #2f8a4f;background:#fff;color:#1f6b3a;border-radius:999px;padding:5px 10px;font:13px 'Be Vietnam Pro',system-ui,sans-serif;cursor:pointer}
+#tgai-f{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #cfe0d3}
+#tgai-q{flex:1;min-width:0;background:#fff;border:1px solid #cfe0d3;border-radius:12px;padding:10px;color:#123227;font:15px 'Be Vietnam Pro',system-ui,sans-serif}
+#tgai-send{border:none;border-radius:12px;padding:0 14px;background:#2f8a4f;color:#fff;font-weight:700;cursor:pointer}
+#tgai-rule{font-size:11.5px;color:#4d6a5d;padding:0 12px 10px}
+@media(max-width:600px){#tgai-btn .tgai-t{display:none}#tgai-btn{padding:14px;font-size:22px}}
+/* Khi trang được nhúng (Google Site): nút thành thanh ở đầu trang, khung chat mở ngay bên dưới */
+.tgai-embed #tgai-btn{position:relative;right:auto;bottom:auto;width:calc(100% - 24px);margin:10px 12px 0;justify-content:center;padding:12px 18px;font-size:15px}
+.tgai-embed #tgai-btn .tgai-t{display:inline}
+.tgai-embed #tgai-box{position:absolute;top:66px;bottom:auto;right:12px;height:500px;max-height:none}
+</style>
+
+<button id="tgai-btn" aria-label="Mở trợ giảng AI">🤖<span class="tgai-t"> Hỏi trợ giảng AI</span></button>
+<div id="tgai-box" role="dialog" aria-label="Trợ giảng AI">
+  <div id="tgai-head"><div><b>🤖 Trợ giảng AI</b><small>KHTN 7 · Bài 28: Trao đổi khí ở sinh vật</small></div><button id="tgai-x" aria-label="Đóng">×</button></div>
+  <div id="tgai-log"><div class="tgai-b tgai-a">Chào em! Mình là trợ giảng AI của Mái Vòm Sự Sống. Em đang ở trạm nào, vướng chỗ nào cứ hỏi, mình sẽ gợi ý để em tự tìm ra câu trả lời nhé 🌿</div></div>
+  <div id="tgai-chips">
+    <button class="tgai-c">Trao đổi khí là gì?</button>
+    <button class="tgai-c">Vì sao khí khổng đóng, mở?</button>
+    <button class="tgai-c">Gợi ý cho câu em đang làm</button>
+  </div>
+  <div id="tgai-f"><input id="tgai-q" maxlength="300" placeholder="Nhập câu hỏi của em…"><button id="tgai-send">Gửi</button></div>
+  <div id="tgai-rule">🛡️ Hỏi để hiểu, không hỏi để chép · Không ghi thông tin cá nhân · AI có thể sai, hãy đối chiếu với SGK và thầy cô.</div>
+</div>
+
+<script>
+(function(){
+  // Đang nằm trong khung nhúng (Google Site)? -> đưa nút lên đầu trang để luôn nhìn thấy
+  var inFrame=false;try{inFrame=window.self!==window.top}catch(e){inFrame=true}
+  if(inFrame){document.documentElement.classList.add('tgai-embed');var bt=document.getElementById('tgai-btn');document.body.insertBefore(bt,document.body.firstChild);document.body.style.position='relative';document.body.appendChild(document.getElementById('tgai-box'))}
+  var box=document.getElementById('tgai-box'),log=document.getElementById('tgai-log'),inp=document.getElementById('tgai-q'),hist=[],busy=false;
+  document.getElementById('tgai-btn').onclick=function(){box.classList.toggle('open');if(box.classList.contains('open'))inp.focus()};
+  document.getElementById('tgai-x').onclick=function(){box.classList.remove('open')};
+  function add(t,who){var d=document.createElement('div');d.className='tgai-b '+who;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+  function where(){
+    var v=document.querySelector('.view:not([hidden])'),h='',t='';
+    if(v){var hh=v.querySelector('h2');h=hh?hh.textContent.trim():'';t=(v.innerText||'').replace(/\s+/g,' ').slice(0,360)}
+    return 'Học sinh đang dùng học liệu "Mái Vòm Sự Sống" (KHTN 7, Bài 28: Trao đổi khí ở sinh vật). Trạm đang mở: "'+h+'". Nội dung trên màn hình: "'+t+'". KHÔNG nói đáp án, chỉ gợi ý cách nghĩ.';
+  }
+  async function ask(text){
+    var q=(text||inp.value).trim(); if(!q||busy)return; inp.value=''; busy=true;
+    add(q,'tgai-u'); var w=add('Trợ giảng đang suy nghĩ…','tgai-a');
+    try{
+      var r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,context:where(),history:hist.slice(-6)})});
+      var j=await r.json(); if(!r.ok||!j.reply)throw 0;
+      w.textContent=j.reply; hist.push({role:'user',text:q},{role:'ai',text:j.reply});
+    }catch(e){w.textContent='Trợ giảng AI đang tạm nghỉ. Em thử lại sau hoặc hỏi thầy cô nhé!'}
+    busy=false;
+  }
+  document.getElementById('tgai-send').onclick=function(){ask()};
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter')ask()});
+  document.querySelectorAll('.tgai-c').forEach(function(b){b.onclick=function(){ask(b.textContent)}});
+})();
+</script>
+<!-- ===== HẾT ĐOẠN TRỢ GIẢNG AI ===== -->
+
+<!-- Vercel Web Analytics -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
